@@ -93,15 +93,9 @@ exports.updateCategory = [
 ];
 
 exports.deleteCategory = [
-  body("id").not().isEmpty().withMessage("Category Id is required"),
-
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
     try {
-      const { id } = req.body;
+      const { id } = req.params;
 
       const category = await Category.findOne({ _id: id });
       if (!category) {
@@ -151,10 +145,9 @@ exports.getVendorsByCategory = [
       let products;
 
       let vendors = [];
-      for(let subcategory of subCategories)
-      {
+      for (let subcategory of subCategories) {
         products = await Product.find({ subCategory: subcategory._id }, { vendor: 1 }).populate("vendor");
-        for(let product of products) {
+        for (let product of products) {
           vendors.push(product.vendor);
         }
       }

@@ -1,0 +1,5276 @@
+{
+"info": {
+"_postman_id": "426c24c2-f374-410e-9b99-89b0e3a2ea36",
+"name": "Samonn",
+"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+},
+"item": [
+{
+"name": "Admin",
+"item": [
+{
+"name": "Authentication",
+"item": [
+{
+"name": "Login",
+"event": [
+{
+"listen": "test",
+"script": {
+"type": "text/javascript",
+"exec": [
+"pm.environment.set(\"jwt\", pm.response.json().token);"
+]
+}
+}
+],
+"id": "123c50d0-6e90-4b3c-a1dc-83fcbe24bf7d",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Access-Control-Allow-Origin",
+"value": "*",
+"type": "text",
+"disabled": true
+}
+],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"email\": \"milanrawat086@gmail.com\",\r\n    \"password\": \"test1234\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/login"
+},
+"response": []
+}
+],
+"id": "58de9625-40ba-4811-8a33-0e471e1f3ac2"
+},
+{
+"name": "Category",
+"item": [
+{
+"name": "Sub Category",
+"item": [
+{
+"name": "Add Sub Category",
+"id": "ef29a275-f5cc-43d7-a861-613029ea8478",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"name\": \"canvas\",\r\n    \"image\": \"https://cdn.vox-cdn.com/thumbor/v97OD-MBgNjw8p5crApucVs9RB8=/0x0:2050x1367/1800x1800/filters:focal(1025x684:1026x685)/cdn.vox-cdn.com/uploads/chorus_asset/file/22022572/bfarsace_201106_4269_012.0.jpg\",\r\n    \"keywords\": [\"canavs\", \"art\"],\r\n    \"mainCategory\": \"63145f21d7c5656fd698472f\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/category/addSubCategory"
+},
+"response": []
+},
+{
+"name": "Get All Sub Category",
+"id": "e3b2dd76-6728-46cb-9300-9c429c03ed92",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/category/getAllSubCategory?limit=24&page=1&sort=old",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"category",
+"getAllSubCategory"
+],
+"query": [
+{
+"key": "limit",
+"value": "24"
+},
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "sort",
+"value": "old"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get Sub Categories By Main Category",
+"id": "11859f70-5ab9-4f2b-95bf-bdfeef8cd156",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/category/getSubCategories?ctgId=61b0aad689157778dcc812b1",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"category",
+"getSubCategories"
+],
+"query": [
+{
+"key": "ctgId",
+"value": "61b0aad689157778dcc812b1"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Update Sub Category",
+"id": "e4dca044-8173-4303-924d-fb994e77e3b1",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"id\": \"61b20c597490ce5f6971603f\",\r\n    \"name\": \"phone\",\r\n    \"image\": \"\",\r\n    \"keywords\": [\r\n        \"apple\",\r\n        \"smartphone\",\r\n        \"phone\",\r\n        \"cellphone\"\r\n    ],\r\n    \"mainCategory\": \"61b0aad689157778dcc812b1\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/category/updateSubCategory"
+},
+"response": []
+},
+{
+"name": "Delete Sub Category",
+"id": "06f2f220-103a-4229-9c96-fa6e4044125b",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "DELETE",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"id\": \"62cbfff4aa28073aa09991fb\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/category/deleteSubCategory"
+},
+"response": []
+}
+],
+"id": "32d62fcc-0611-4821-90cb-ecd67ad43fb1"
+},
+{
+"name": "Add Category",
+"id": "ddc8fd0f-a34d-432d-8add-220aa554c4f0",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"name\": \"art supplies\",\r\n    \"image\": \"https://maalgadi.in/wp-content/uploads/2021/05/electronic-gadgets.jpeg\",\r\n    \"keywords\": [\"paint\", \"canvas\", \"brushes\", \"colours\"]\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/category/addCategory"
+},
+"response": []
+},
+{
+"name": "Get All Categories",
+"id": "c3c95602-998d-491a-a300-1a71674277a4",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/category/getAllCategory"
+},
+"response": []
+},
+{
+"name": "Update Category",
+"id": "0db30a4a-d989-4438-9b86-8d7ae428c5f6",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"id\": \"61b0aad689157778dcc812b1\",\r\n    \"name\": \"electronics\",\r\n    \"image\": \"https://maalgadi.in/wp-content/uploads/2021/05/electronic-gadgets.jpeg\",\r\n    \"keywords\": [\"electronics\", \"tech\", \"technology\", \"techs\"]\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/category/updateCategory"
+},
+"response": []
+},
+{
+"name": "Delete Category",
+"id": "05a4a88e-b615-4d82-b218-f08694250666",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "DELETE",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"id\": \"61b0aad689157778dcc812b1\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/category/deleteCategory"
+},
+"response": []
+}
+],
+"id": "7b81c440-51c0-4584-917d-45c294259466"
+},
+{
+"name": "Type",
+"item": [
+{
+"name": "Add Type",
+"id": "3c16a245-22f4-4517-87f5-e56255ee026b",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"name\": \"fruits\",\r\n    \"image\": \"https://www.dairyfoods.com/ext/resources/DF/2020/August/df-100/GettyImages-1194287257.jpg\",\r\n    \"keywords\": [\"fruit\", \"fresh\"]\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/type/addType"
+},
+"response": []
+},
+{
+"name": "Get All Types",
+"id": "cc31e246-3218-4d55-907d-48ea2fafc5bf",
+"request": {
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/type/getAllType"
+},
+"response": []
+},
+{
+"name": "Update Type",
+"id": "18e6d41e-92d6-4eb6-82cc-1f27b3165de7",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"id\": \"61b4adbbb8b7285ed4fb78bb\",\r\n    \"name\": \"dairy\",\r\n    \"image\": \"https://www.dairyfoods.com/ext/resources/DF/2020/August/df-100/GettyImages-1194287257.jpg\",\r\n    \"keywords\": [\"dairy\", \"food\", \"milk\"]\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/type/updateType"
+},
+"response": []
+},
+{
+"name": "Delete Type",
+"id": "1ce344b3-c1a0-4525-b054-24e5f5fd0f99",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "DELETE",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"id\": \"61b4adbbb8b7285ed4fb78bb\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/type/deleteType"
+},
+"response": []
+}
+],
+"id": "735b12b4-972a-4d10-b204-e12468a96524"
+},
+{
+"name": "Member",
+"item": [
+{
+"name": "Create Member",
+"id": "9b0d7e04-7635-4791-9cfd-91228e6e49a0",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"fullName\": \"First member\",\r\n    \"phone\": \"\",\r\n    \"email\": \"member@example.com\",\r\n    \"password\": \"test1234\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/createMember"
+},
+"response": []
+},
+{
+"name": "Get All Members",
+"id": "39c4889c-50b8-43ab-9b91-7c5ce41485e6",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/admin/getAllMembers"
+},
+"response": []
+},
+{
+"name": "Delete Member",
+"id": "e1e235e6-7f1f-4dc1-9c2b-201ec53259e5",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "DELETE",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"memberId\": \"620f9e2f35120f46cd7ae7bb\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/deleteMember"
+},
+"response": []
+}
+],
+"id": "4207dd7d-15c1-44e8-93d9-707fec45f8a3"
+},
+{
+"name": "Dashboard",
+"item": [
+{
+"name": "Get Dashboard Overview",
+"id": "8143fb7c-3c42-4f74-9153-a9c22947ca84",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/admin/getDashboardOverview"
+},
+"response": []
+},
+{
+"name": "Get This Month Overview",
+"id": "f6185ef0-215d-4325-a503-a660326601a9",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/admin/getThisMonthOverview"
+},
+"response": []
+},
+{
+"name": "Get Last 7 Days Overview",
+"id": "9f94739b-0bd5-4d08-a1c1-46974e851eb1",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/admin/getWeekOverview"
+},
+"response": []
+},
+{
+"name": "Get Todays Overview",
+"id": "85a3014f-ff57-4dc4-b2a0-79e686f7f0ab",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [
+{
+"key": "Access-Control-Allow-Origin",
+"value": "http://localhost:3000",
+"type": "text"
+}
+],
+"url": "{{URL}}/api/v1/admin/getTodaysOverview"
+},
+"response": []
+},
+{
+"name": "Get Todays Overview Copy",
+"id": "52ead3e1-9c85-4bfb-a8f3-8e25d2ce0f6d",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/admin/getTodaysOverview"
+},
+"response": []
+}
+],
+"id": "ba9fc94c-086c-4067-a68f-3c4ff6ee9a0e"
+},
+{
+"name": "Shopper",
+"item": [
+{
+"name": "Get All Shoppers",
+"id": "941d6d92-8acd-4c16-8d64-d677972279d2",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/admin/getAllShoppers?page=1&limit=15&sort=old",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"admin",
+"getAllShoppers"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "15"
+},
+{
+"key": "sort",
+"value": "old"
+},
+{
+"key": "search",
+"value": "milan",
+"disabled": true
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Delete Shopper",
+"id": "bce7a906-ee1f-4563-b8b2-b8b17eac4936",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "DELETE",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"shopperId\": \"61b74ba95dd11f32d33587bc\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/deleteShopper"
+},
+"response": []
+}
+],
+"id": "405f3d7a-5d6f-49ee-bad0-fd77117f7d25"
+},
+{
+"name": "Vendor",
+"item": [
+{
+"name": "Get All Vendors",
+"id": "3c6f2981-a2ca-4e2c-9505-1252594c89d3",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/admin/getAllVendors?page=1&limit=15&sort=old&search=",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"admin",
+"getAllVendors"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "15"
+},
+{
+"key": "sort",
+"value": "old"
+},
+{
+"key": "search",
+"value": ""
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Bann Vendors",
+"id": "69778262-263e-46aa-90f7-d289a47afd5c",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"vendorId\": \"61af72af7f6d59daca999dd6\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/bannVendor"
+},
+"response": []
+},
+{
+"name": "Approve or Reject Vendors",
+"id": "313a7b3d-427b-483f-9a29-76de06f277d7",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"vendorId\": \"62cd1ee5343c78fc9285d21b\",\r\n    \"status\": \"approved\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/approveOrRejectVendor"
+},
+"response": []
+},
+{
+"name": "Toggle Featured Status",
+"id": "22176f72-25e2-41ec-a820-3766f811678a",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"sellerId\": \"61af72af7f6d59daca999dd6\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/toggleFeatured"
+},
+"response": []
+}
+],
+"id": "0fea0a06-4c45-4d2a-8362-9d305610760b"
+},
+{
+"name": "Grocer",
+"item": [
+{
+"name": "Get All Grocer",
+"id": "1c61df45-7406-42ce-9e31-b0dce167d0c1",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/admin/getAllGrocers?page=1&limit=15&sort=old",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"admin",
+"getAllGrocers"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "15"
+},
+{
+"key": "sort",
+"value": "old"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Bann Grocer",
+"id": "2c727588-5d1d-4ef6-be6b-d4080c388a0b",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"grocerId\": \"61af72b67f6d59daca999dd9\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/bannGrocer"
+},
+"response": []
+},
+{
+"name": "Approve or Reject Grocer",
+"id": "1f3ac3d8-4a64-4b1b-bb90-a1f9e1f75e20",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"grocerId\": \"62f89e44fc68735679d7d39a\",\r\n    \"status\": \"approved\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/approveOrRejectGrocer"
+},
+"response": []
+},
+{
+"name": "Toggle Featured Status",
+"id": "cf3d4d7f-69ca-44fd-bd85-16bf08092e16",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"sellerId\": \"61af72b67f6d59daca999dd9\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/toggleFeatured"
+},
+"response": []
+}
+],
+"id": "b2ee5fb5-33a4-4554-8ed4-31125fc3eef7"
+},
+{
+"name": "Restaurant",
+"item": [
+{
+"name": "Get All Restaurants",
+"id": "068bba24-2412-4bd6-8c68-a17ea06cef73",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/admin/getAllRestaurants?page=1&limit=15&sort=old",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"admin",
+"getAllRestaurants"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "15"
+},
+{
+"key": "sort",
+"value": "old"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Bann Restaurant",
+"id": "b34fb18f-825f-4b5e-ba1b-78d1fa4d46a7",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"restaurantId\": \"61af72ba7f6d59daca999ddc\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/bannRestaurant"
+},
+"response": []
+},
+{
+"name": "Get Menus By Restaurant",
+"id": "80838171-cb51-43ca-9cb8-ce05c214f637",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/restaurant/getMenusByRestaurant?restaurantId=61af72ba7f6d59daca999ddc",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"restaurant",
+"getMenusByRestaurant"
+],
+"query": [
+{
+"key": "restaurantId",
+"value": "61af72ba7f6d59daca999ddc"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Toggle Featured Status",
+"id": "5e079db6-c93d-4488-8e6d-8b9bf94ca966",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"sellerId\": \"61af72ba7f6d59daca999ddc\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/toggleFeatured"
+},
+"response": []
+}
+],
+"id": "d8dba6ad-7a7b-4e58-989b-5ba7005e816b"
+},
+{
+"name": "Rider",
+"item": [
+{
+"name": "Get All Riders",
+"id": "4254eb89-978d-46e5-87fe-b8a78d728446",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/admin/getAllRiders?page=1&limit=15&sort=old",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"admin",
+"getAllRiders"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "15"
+},
+{
+"key": "search",
+"value": "mi",
+"disabled": true
+},
+{
+"key": "sort",
+"value": "old"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Bann Riders",
+"id": "83baca1f-9b7f-4320-b5a1-e8ac70606338",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"riderId\": \"61af738da182dfa5040822dd\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/bannRider"
+},
+"response": []
+},
+{
+"name": "Change Rider Role",
+"id": "80b0faf7-f3db-43ca-9a26-9a7cacf3b042",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"riderId\" : \"61af738da182dfa5040822dd\",\r\n    \"riderRole\" : \"grocerydelivery\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/changeRiderRole"
+},
+"response": []
+},
+{
+"name": "Approve Or Reject Rider",
+"id": "0e27ef3d-bbfe-4b1a-98d1-a68373b98214",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"riderId\" : \"61af738da182dfa5040822dd\",\r\n    \"status\" : \"approved\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/approveOrRejectRider"
+},
+"response": []
+}
+],
+"id": "91444968-b513-4072-b15e-134def7b933d"
+},
+{
+"name": "Products",
+"item": [
+{
+"name": "Get All Products By Vendors",
+"id": "7da0d971-ec2e-4853-89b6-45b044a213d9",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/admin/getAllProductsByVendor?page=1&limit=15&sort=old&id=61af72af7f6d59daca999dd6",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"admin",
+"getAllProductsByVendor"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "15"
+},
+{
+"key": "sort",
+"value": "old"
+},
+{
+"key": "id",
+"value": "61af72af7f6d59daca999dd6"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Toggle Best Deal",
+"id": "56bdac93-7c91-4649-8bf6-22bc5ebca021",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"itemId\": \"61f6a6205fc657b46a762d4e\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/toggleBestDeal"
+},
+"response": []
+}
+],
+"id": "4f708d1e-2c47-4913-9c7c-589073fbd820"
+},
+{
+"name": "Orders",
+"item": [
+{
+"name": "Get all Orders by Vendors",
+"id": "0754d8ea-3521-4325-bdc9-9e8ef7d194c1",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/admin/getAllOrdersByVendor?page=1&limit=15&sort=old&id=61af72af7f6d59daca999dd6&status=pending",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"admin",
+"getAllOrdersByVendor"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "15"
+},
+{
+"key": "sort",
+"value": "old"
+},
+{
+"key": "id",
+"value": "61af72af7f6d59daca999dd6"
+},
+{
+"key": "status",
+"value": "pending"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get All Transport Orders",
+"id": "5aa0dd21-9c0e-4305-af45-d8da23bc6915",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/admin/getTransportRequests?page=1&limit=15&sort=old&id=61af72af7f6d59daca999dd6&status=pending",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"admin",
+"getTransportRequests"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "15"
+},
+{
+"key": "sort",
+"value": "old"
+},
+{
+"key": "id",
+"value": "61af72af7f6d59daca999dd6"
+},
+{
+"key": "status",
+"value": "pending"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get All Product Orders",
+"id": "3b89cea7-0245-4cd8-b766-5a16a3f74a6e",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/admin/getAllPorders"
+},
+"response": []
+},
+{
+"name": "Get All Grocery Orders",
+"id": "a382303a-4ee7-41ab-a57e-70f338a24794",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/admin/getAllGorders"
+},
+"response": []
+},
+{
+"name": "Assign Order to Rider",
+"id": "8ad116cd-d023-4902-9f0c-ec2321a71840",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"riderId\": \"631a3188a3bafe6e040cc255\",\r\n    \"orderId\": \"630519608cf689bb4ea34cd1\",\r\n    \"orderModel\": \"Porder\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/asignOrderToRider"
+},
+"response": []
+}
+],
+"id": "0cd63e42-6bd2-40ce-acaa-830c648891da"
+},
+{
+"name": "Grocery",
+"item": [
+{
+"name": "Toggle Best Deal",
+"id": "14f7aa3d-163b-41af-ad08-6c9b5ae18a96",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"itemId\": \"623ffee7069b629f622c027c\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/admin/toggleBestDeal"
+},
+"response": []
+}
+],
+"id": "b668f63a-da80-4903-b124-a7262971eedd"
+},
+{
+"name": "Region",
+"item": [
+{
+"name": "Add Region",
+"id": "c5c939a1-00c0-47f0-b715-3c12f430577f",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"regionName\": \"First Region\",\r\n    \"baseDelivery\": \"20\",\r\n    \"description\": \"Some description\",\r\n    \"packagingCost\": \"packagingCost\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/region/addRegion"
+},
+"response": []
+},
+{
+"name": "Update Region",
+"id": "0f65e791-354c-481a-a8d1-8ecc4425f522",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"regionId\": \"631c54c9a47d663ad792e9b2\",\r\n    \"regionName\": \"1stRegion\",\r\n    \"baseDelivery\": \"\",\r\n    \"description\": \"Some descriptions\",\r\n    \"packagingCost\": \"packagingCost\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/region/updateRegion"
+},
+"response": []
+},
+{
+"name": "Get All Regions",
+"id": "e07996d3-8d54-4f58-8b11-e4a33cf31d19",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/region/getAllRegions"
+},
+"response": []
+},
+{
+"name": "Delete Region",
+"id": "0de215e4-b6b5-4107-a4f2-4abd94d42130",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "DELETE",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"regionId\": \"631c55d236941781a9f3b8d7\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/region/deleteRegion"
+},
+"response": []
+},
+{
+"name": "Assign region to Member",
+"id": "28c76b1c-52ac-4dd3-ac84-d3a7a2741040",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"regionId\": \"631c55d236941781a9f3b8d7\",\r\n    \"memberId\": \"631c677d3af070af0f3e2b66\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/region/assignMemberRegion"
+},
+"response": []
+},
+{
+"name": "Assign region to Vendor",
+"id": "eca05779-fbb8-4106-ac1b-814ce70fb4d2",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"regionId\": \"631c55d236941781a9f3b8d7\",\r\n    \"vendorId\": \"63050b038cf689bb4ea34a4f\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/region/assignVendorRegion"
+},
+"response": []
+},
+{
+"name": "Assign region to Restaurant",
+"id": "705d3061-9d16-483b-9753-170ae8f0e0e6",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"regionId\": \"631c55d236941781a9f3b8d7\",\r\n    \"restaurantId\": \"63050b038cf689bb4ea34a4f\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/region/assignRestaurantRegion"
+},
+"response": []
+},
+{
+"name": "Assign region to Grocer",
+"id": "523d1d60-3ff3-49cb-92c9-f197d47c1751",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"regionId\": \"631c55d236941781a9f3b8d7\",\r\n    \"grocerId\": \"63050b038cf689bb4ea34a4f\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/region/assignGrocerRegion"
+},
+"response": []
+},
+{
+"name": "Assign region to Rider",
+"id": "2ab4509d-bab9-4039-b4ec-2589a1605479",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"regionId\": \"631c55d236941781a9f3b8d7\",\r\n    \"riderId\": \"63050b038cf689bb4ea34a4f\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/region/assignRiderRegion"
+},
+"response": []
+}
+],
+"id": "95dc18e5-c54e-4da6-a9a6-26bed775abd3"
+}
+],
+"id": "18bd7cf3-11fb-4a39-8b84-187e45e6dfa8"
+},
+{
+"name": "Address",
+"item": [
+{
+"name": "Add Address",
+"event": [
+{
+"listen": "test",
+"script": {
+"id": "bca9f4a4-a86a-4350-be4b-511acefe5599",
+"exec": [
+""
+],
+"type": "text/javascript"
+}
+}
+],
+"id": "314419e8-e7d5-464c-8b96-d64ebd613458",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"regionId\": \"6329317c54df9059a6ecd1c3\",\r\n    \"userName\": \"MR\",\r\n    \"phoneNumber\": \"919409259646\",\r\n    \"addressLine1\": \"address line 1\",\r\n    \"addressLine2\": \"address line 2\",\r\n    \"landmark\": \"landmark\",\r\n    \"city\": \"City name\",\r\n    \"state\": \"Uttar Pradesh\",\r\n    \"zipCode\": \"246763\",\r\n    \"country\": \"India\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/address/addAddress"
+},
+"response": []
+},
+{
+"name": "Get Address",
+"event": [
+{
+"listen": "test",
+"script": {
+"id": "f2e9446a-2c0c-4546-971e-baba62daea3b",
+"exec": [
+""
+],
+"type": "text/javascript"
+}
+}
+],
+"id": "a12a6359-de96-4a2f-98de-9793ee38c8b7",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": {
+"raw": "{{URL}}/api/v1/user/address/getAddress?id=61b9f20b2dfe6c08fd35bb69",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"address",
+"getAddress"
+],
+"query": [
+{
+"key": "id",
+"value": "61b9f20b2dfe6c08fd35bb69"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get All My Address",
+"id": "c3407fd5-97b7-4299-9c25-efaf2830a369",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/address/getAllMyAddress"
+},
+"response": []
+},
+{
+"name": "Update Address",
+"id": "0bde7d86-18c1-4ecf-8502-ba84e4fb9827",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"addressId\": \"61b9f20b2dfe6c08fd35bb69\",\r\n    \"userName\": \"Milan\",\r\n    \"phoneNumber\": \"911234567890\",\r\n    \"addressLine1\": \"address line 1\",\r\n    \"landmark\": \"landmark\",\r\n    \"city\": \"City name\",\r\n    \"state\": \"Uttar Pradesh\",\r\n    \"zipCode\": \"\",\r\n    \"country\": \"India\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/address/updateAddress"
+},
+"response": []
+},
+{
+"name": "Delete Address",
+"id": "0840d357-e9d1-4476-8168-820527e4499d",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "DELETE",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"addressId\": \"61b9f20b2dfe6c08fd35bb69\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/address/deleteAddress"
+},
+"response": []
+}
+],
+"id": "124918aa-3a4d-4c9c-afe6-bbeb47f7f864"
+},
+{
+"name": "Shopper",
+"item": [
+{
+"name": "Authentication",
+"item": [
+{
+"name": "Signup",
+"event": [
+{
+"listen": "test",
+"script": {
+"id": "1e273dac-017f-444e-bb7b-f63b88ad9f83",
+"exec": [
+""
+],
+"type": "text/javascript"
+}
+}
+],
+"id": "02bde80f-e193-4560-9892-a79339c6fd92",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"fullName\": \"Nikhil\",\r\n    \"phone\": \"917043694016\",\r\n    \"password\": \"test1234\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/register"
+},
+"response": []
+},
+{
+"name": "Login",
+"event": [
+{
+"listen": "test",
+"script": {
+"type": "text/javascript",
+"exec": [
+"pm.environment.set(\"jwt\", pm.response.json().token);"
+]
+}
+}
+],
+"id": "7ddd9e53-735e-4b13-bf67-032eda0a9703",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"phone\": \"+919528825708\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/login"
+},
+"response": []
+},
+{
+"name": "Code Verification",
+"event": [
+{
+"listen": "test",
+"script": {
+"type": "text/javascript",
+"exec": [
+"pm.environment.set(\"jwt\", pm.response.json().token);"
+]
+}
+}
+],
+"id": "a9b41ee4-5957-4f7b-8826-7449e382e0e5",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"phone\": \"+919528825708\",\r\n    \"verificationCode\": \"821550\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/codeVerification"
+},
+"response": []
+},
+{
+"name": "Send Verification Code",
+"id": "7050dd7d-5d08-4d8c-8ef3-87473355287b",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"phone\": \"919528825708\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/sendVerificationCode"
+},
+"response": []
+},
+{
+"name": "Forget Password",
+"id": "b66ba59f-d2bc-4a8f-90aa-982a7a422b0d",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"phone\": \"919528825708\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/forgetPassword"
+},
+"response": []
+},
+{
+"name": "Reset Password",
+"id": "44df5297-8d4a-4012-97f5-57dcd1aa6dc7",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"phone\": \"919528825708\",\r\n    \"verificationCode\": \"782834\",\r\n    \"newPassword\": \"test1234\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/resetPassword"
+},
+"response": []
+},
+{
+"name": "Send Code",
+"event": [
+{
+"listen": "test",
+"script": {
+"id": "1eea3266-53a6-4f62-bb52-fd71da0512c4",
+"exec": [
+""
+],
+"type": "text/javascript"
+}
+}
+],
+"id": "c68239b7-ce37-4a01-aea6-e05b3448f918",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"phone\": \"919528825708\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/sendCode"
+},
+"response": []
+},
+{
+"name": "Verify Code",
+"event": [
+{
+"listen": "test",
+"script": {
+"id": "e43496b2-2626-4e5c-bc9e-c897476721a6",
+"exec": [
+""
+],
+"type": "text/javascript"
+}
+}
+],
+"id": "563a4a98-5e98-4738-a400-bf10fda62589",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"phone\": \"+919528825708\",\r\n    \"verificationCode\": \"768535\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/verifyCode"
+},
+"response": []
+}
+],
+"id": "23c01bec-d215-4dbd-b99c-26cde50b8b41"
+},
+{
+"name": "Grocery Cart",
+"item": [
+{
+"name": "Add to Grocery Cart",
+"id": "bd958f6e-670f-48dc-812e-49d6f76de6ba",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"stuffId\": \"623ffee7069b629f622c027c\",\r\n    \"quantity\": \"3\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/addToGroceryCart"
+},
+"response": []
+},
+{
+"name": "Decrease Item Quantity",
+"id": "13435311-552d-4b4d-9a8b-13631882f71f",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"stuffId\": \"623ffee7069b629f622c027c\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/decQuantityGrocery"
+},
+"response": []
+},
+{
+"name": "Get My Grocery Cart",
+"id": "5ac0a769-4fb8-43c6-8de5-c031649f6cca",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/getMyGroceryCart"
+},
+"response": []
+},
+{
+"name": "Increase Item Quantity",
+"id": "5140baf4-0662-41f8-8e38-6acf8615e532",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"stuffId\": \"623ffee7069b629f622c027c\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/incQuantityGrocery"
+},
+"response": []
+},
+{
+"name": "Remove From Grocery Cart",
+"id": "be904307-b79e-4c88-a0a7-0670349672e0",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"stuffId\": \"623ffee7069b629f622c027c\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/removeFromGroceryCart"
+},
+"response": []
+}
+],
+"id": "b2f8e4c8-99c4-4708-a708-55227e830f45"
+},
+{
+"name": "Product Cart",
+"item": [
+{
+"name": "Add To Cart",
+"id": "c943f19f-b2d6-4c51-9bc5-70df9ba51f8e",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"productId\": \"62cd7d70343c78fc9285d36a\",\r\n    \"quantity\": \"1\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/addToCart"
+},
+"response": []
+},
+{
+"name": "Decrease Quantity",
+"id": "82eb8a82-4adc-4df3-9179-f1f130009664",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"productId\": \"61f6a6205fc657b46a762d4e\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/decQuantity"
+},
+"response": []
+},
+{
+"name": "Get My Cart",
+"id": "44dc8366-012a-4753-a481-4fb519d3b216",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/user/shopper/getMyCart"
+},
+"response": []
+},
+{
+"name": "Increase Quantity",
+"id": "d5fb4fcf-dece-4e43-8ac2-4709986f18fb",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"productId\": \"61f6a6205fc657b46a762d4e\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/incQuantity"
+},
+"response": []
+},
+{
+"name": "Remove From Cart",
+"id": "067d5a2f-d57a-412b-9ccc-d332a583e8be",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"productId\": \"61f6a6205fc657b46a762d4e\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/removeFromCart"
+},
+"response": []
+}
+],
+"id": "dfa726bf-4574-43bb-a7f2-6540ff2d45e5"
+},
+{
+"name": "Dish Cart",
+"item": [
+{
+"name": "Add To Cart",
+"id": "3c091eae-7c32-45b7-9e6c-7cb0a6409040",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"dishId\": \"63031fd8ae55af2bd801a701\",\r\n    \"quantity\": \"1\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/addToFoodCart"
+},
+"response": []
+},
+{
+"name": "Decrease Quantity",
+"id": "d7bbd40e-c0e9-4db1-80a7-af14f1d7bfc0",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"dishId\": \"61f0e90910a5023e064e0d9d\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/decFoodQuantity"
+},
+"response": []
+},
+{
+"name": "Get My Cart",
+"id": "d0bff456-d47a-4257-87d3-f1bcb82a5d69",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/user/shopper/getMyFoodCart"
+},
+"response": []
+},
+{
+"name": "Increase Quantity",
+"id": "0b1e8942-8f19-457c-94f4-238cfa4fc1c9",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"dishId\": \"61f0e90910a5023e064e0d9d\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/incFoodQuantity"
+},
+"response": []
+},
+{
+"name": "Remove From Cart",
+"id": "edbdb43f-5d70-4a74-9553-6a7035c5ee5b",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"dishId\": \"61f0e90910a5023e064e0d9d\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/removeFromFoodCart"
+},
+"response": []
+}
+],
+"id": "645fc6f6-b605-472c-9146-8c1d1e2e3a35"
+},
+{
+"name": "Groceries",
+"item": [
+{
+"name": "Type (Stuff Category)",
+"item": [
+{
+"name": "Get All Types",
+"id": "31370ad1-8b94-499d-88c5-f6ec80c85cde",
+"request": {
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/type/getAllType"
+},
+"response": []
+}
+],
+"id": "789d2f3f-b28a-4dc9-bb8f-2fcf74d13964"
+},
+{
+"name": "Get Best Deal Groceries",
+"id": "b43fa7b1-e18f-45c6-bfe5-8866acd41b85",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/grocery/getBestDealStuffs?page=1",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"grocery",
+"getBestDealStuffs"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get Grocery By Grocer",
+"id": "6fc58f0a-e573-4bf9-ba15-f98b9cb59255",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/grocery/getStuffByGrocer?grocerId=61af72b67f6d59daca999dd9",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"grocery",
+"getStuffByGrocer"
+],
+"query": [
+{
+"key": "grocerId",
+"value": "61af72b67f6d59daca999dd9"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get Grocery By Type",
+"id": "98101490-26af-4de7-a358-ccbae8a77678",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/grocery/getStuffByType?typeId=61b4b064a1696046388d74fd&page=1&limit=10&sort=old",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"grocery",
+"getStuffByType"
+],
+"query": [
+{
+"key": "typeId",
+"value": "61b4b064a1696046388d74fd"
+},
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "10"
+},
+{
+"key": "sort",
+"value": "old"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get All Groceries",
+"id": "e815b750-ef14-4d90-9a5b-0bce1666dfd5",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/grocery/getAllStuffs?page=1&limit=100",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"grocery",
+"getAllStuffs"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "search",
+"value": "apple",
+"disabled": true
+},
+{
+"key": "limit",
+"value": "100"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get My Grocery Orders",
+"id": "8b623cf5-6306-4c27-a240-7bf7c4f5075a",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/shopper/getMyGroceryOrders?status=PENDING",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"shopper",
+"getMyGroceryOrders"
+],
+"query": [
+{
+"key": "status",
+"value": "PENDING"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Place Grocery Order",
+"id": "320e1c5b-c995-4e16-8051-42ac9a851b11",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"addressId\": \"620a2d3c7f6f1075a85aa174\",\r\n    \"transactionId\": \"transactionId\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/placeGroceryOrder"
+},
+"response": []
+},
+{
+"name": "Get Grocers By Grocery Type",
+"id": "b2758b66-086f-45cf-8cec-20b90a6ace2a",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"typeId\": \"61b4b064a1696046388d74fd\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/type/getGrocersByType"
+},
+"response": []
+},
+{
+"name": "Get Groceries In State",
+"id": "050c02fc-459c-4979-99a3-229eb9020a67",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"search\": \"apple\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/getGroceriesInState"
+},
+"response": []
+},
+{
+"name": "Get Grocers In State",
+"id": "fbdb221a-911c-4644-8535-b236c93faa6e",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/getGrocersInState"
+},
+"response": []
+},
+{
+"name": "Get Featured Sellers",
+"id": "c2a5e60d-1b8b-4791-be12-61e8d952df55",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"sellerType\": \"grocer\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/getFeaturedSellers"
+},
+"response": []
+},
+{
+"name": "Get Type By Grocer",
+"id": "6ffd444e-3d1f-4866-89e2-1b8bec222978",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/type/getTypeByGrocer?grocerId=63144c934708263489826779",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"type",
+"getTypeByGrocer"
+],
+"query": [
+{
+"key": "grocerId",
+"value": "63144c934708263489826779"
+}
+]
+}
+},
+"response": []
+}
+],
+"id": "b01ec38d-e92d-41f1-92db-2d0d812355d4"
+},
+{
+"name": "Products",
+"item": [
+{
+"name": "Category",
+"item": [
+{
+"name": "Get All Categories",
+"id": "8498d2e3-a242-4cdc-a352-3b057c781049",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/category/getAllCategory"
+},
+"response": []
+},
+{
+"name": "Get All Sub Category",
+"id": "3cff3404-f57a-4a40-8a45-fce8ca5c8f93",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/category/getAllSubCategory?limit=10&page=1&sort=old",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"category",
+"getAllSubCategory"
+],
+"query": [
+{
+"key": "limit",
+"value": "10"
+},
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "sort",
+"value": "old"
+},
+{
+"key": null,
+"value": "",
+"disabled": true
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get Sub Categories By Main Category",
+"id": "5d13a0e3-1a1b-4ad6-ba03-c838580ab2a2",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/category/getSubCategories?ctgId=61b0aad689157778dcc812b1",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"category",
+"getSubCategories"
+],
+"query": [
+{
+"key": "ctgId",
+"value": "61b0aad689157778dcc812b1"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get Products By Vendor",
+"id": "4a859c81-e27e-4f82-88ba-7670df0227b1",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/product/getProductByVendor?id=63050b038cf689bb4ea34a4f",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"product",
+"getProductByVendor"
+],
+"query": [
+{
+"key": "id",
+"value": "63050b038cf689bb4ea34a4f"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get Products By category",
+"id": "83715bb4-fbef-4cbe-ab3f-2602cef3f9ba",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/product/getProductByCategory?page=1&limit=10&categoryId=62cc01d0aa28073aa0999216",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"product",
+"getProductByCategory"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "10"
+},
+{
+"key": "categoryId",
+"value": "62cc01d0aa28073aa0999216"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get Vendors By Category",
+"id": "4c06e8da-20b7-4e96-a1c3-1f77d0c34303",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"categoryId\": \"61b0aad689157778dcc812b1\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/category/getVendorsByCategory"
+},
+"response": []
+},
+{
+"name": "Get Subcategories By Vendor",
+"id": "d353db17-d27b-4474-87ae-26b7b425d02c",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"vendorId\": \"63050b038cf689bb4ea34a4f\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/category/getSubCategoriesByVendor"
+},
+"response": []
+},
+{
+"name": "Get Products By Subcategory and Vendor",
+"id": "9bc69cbc-87aa-4138-9193-646f5fb51a9c",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"vendorId\": \"61af72af7f6d59daca999dd6\",\r\n    \"subcategoryId\": \"61b20c597490ce5f6971603f\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/product/getProductsBySubcategoryAndVendor"
+},
+"response": []
+}
+],
+"id": "6a06002d-ca6b-4c96-ad7c-0c776550bb5c"
+},
+{
+"name": "Get Best Deal Products",
+"id": "d108ae03-9c37-4259-aa94-4c3689e763b9",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/product/getBestDealProducts?page=1",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"product",
+"getBestDealProducts"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "5",
+"disabled": true
+},
+{
+"key": "id",
+"value": "61af72af7f6d59daca999dd6",
+"disabled": true
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get Products By Sub Category",
+"id": "28ecc5c2-9ade-4249-b401-d2458fedba0b",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/product/getProductsBySubcategory?subcategoryId=61b20c597490ce5f6971603f&page=1&limit=5",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"product",
+"getProductsBySubcategory"
+],
+"query": [
+{
+"key": "subcategoryId",
+"value": "61b20c597490ce5f6971603f"
+},
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "5"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get All Products",
+"id": "d24dfe27-3a6a-44a0-9474-b5a1a31a63f9",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/product/getAllProducts?page=1&limit=100",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"product",
+"getAllProducts"
+],
+"query": [
+{
+"key": "search",
+"value": "face",
+"disabled": true
+},
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "100"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get All Products In State",
+"id": "03f380b2-1590-4233-8cf3-34d937c88cd6",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/product/getAllProductsInState?page=1&limit=5&search=face",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"product",
+"getAllProductsInState"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "5"
+},
+{
+"key": "search",
+"value": "face"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Add To Wishlist",
+"id": "f1ee9706-e2e0-4ff7-8e0a-acded84a93a3",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"productId\": \"61fbe2c21a3b521c3364683c\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/addToWishlist"
+},
+"response": []
+},
+{
+"name": "Remove From Wishlist",
+"id": "f4ffb044-bc20-43ef-b5db-54e1900a00b6",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"productId\": \"61fbe2c21a3b521c3364683c\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/removeFromWishlist"
+},
+"response": []
+},
+{
+"name": "Get My Wishlist",
+"id": "ee70f73c-5b05-4ccb-a6d3-9879621f4e84",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/user/shopper/getMyWishlist"
+},
+"response": []
+},
+{
+"name": "Place Order",
+"id": "588a8a98-85cc-4425-a5fb-af395c459c16",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"addressId\": \"620a2d3c7f6f1075a85aa174\",\r\n    \"transactionId\": \"transactionId\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/placeOrder"
+},
+"response": []
+},
+{
+"name": "Get My Orders",
+"id": "a812b21a-276d-4e36-a9ee-7ce62e8f4354",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": {
+"raw": "{{URL}}/api/v1/user/shopper/getMyOrders?status=PENDING",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"shopper",
+"getMyOrders"
+],
+"query": [
+{
+"key": "status",
+"value": "PENDING"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get All Vendors",
+"id": "81189114-d961-4728-9b68-a98b4f5b7849",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/admin/getAllVendors?page=1&limit=15&sort=old&search=",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"admin",
+"getAllVendors"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "15"
+},
+{
+"key": "sort",
+"value": "old"
+},
+{
+"key": "search",
+"value": ""
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get Featured Sellers",
+"id": "5a21eeeb-8776-4ee4-84f3-62fb285fa206",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"sellerType\": \"vendor\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/getFeaturedSellers"
+},
+"response": []
+}
+],
+"id": "5ee72e7f-ad6e-4c56-96cd-8e958aab7eea"
+},
+{
+"name": "Food",
+"item": [
+{
+"name": "Menu",
+"item": [
+{
+"name": "Get Menus By Restaurant",
+"id": "cec2957f-f5a7-43de-80f8-b81d634a5bee",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/restaurant/getMenusByRestaurant?restaurantId=61af72ba7f6d59daca999ddc",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"restaurant",
+"getMenusByRestaurant"
+],
+"query": [
+{
+"key": "restaurantId",
+"value": "61af72ba7f6d59daca999ddc"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get All Restaurants",
+"id": "e861048e-7e5c-43eb-99dc-3cf1abfe4603",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/admin/getAllRestaurants?page=1&limit=15&sort=old&search=",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"admin",
+"getAllRestaurants"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "15"
+},
+{
+"key": "sort",
+"value": "old"
+},
+{
+"key": "search",
+"value": ""
+}
+]
+}
+},
+"response": []
+}
+],
+"id": "12f7b2f4-9a09-429b-84a8-a22ff3c2b1f9"
+},
+{
+"name": "Get All Dishes",
+"id": "e5e32837-7424-421f-a9a2-6b21d18008f4",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/dish/getAllDishes?search=",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"dish",
+"getAllDishes"
+],
+"query": [
+{
+"key": "search",
+"value": ""
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Place Food Order",
+"id": "47e2eb41-afb9-4fcb-ae9c-2f6cae362b7e",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"addressId\": \"620a2d3c7f6f1075a85aa174\",\r\n    \"transactionId\": \"transactionId\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/placeFoodOrder"
+},
+"response": []
+},
+{
+"name": "Get My Food Orders",
+"id": "f72a43f7-b972-4988-806c-425984783075",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/shopper/getMyFoodOrders?status=PENDING",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"shopper",
+"getMyFoodOrders"
+],
+"query": [
+{
+"key": "status",
+"value": "PENDING"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get Restaurants In State",
+"id": "d844cb1e-da95-4cc5-a975-c8cbfa9b8525",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/getRestaurantsInState"
+},
+"response": []
+},
+{
+"name": "Get Dishes In State",
+"id": "e1332d8c-cabe-4329-b8c6-4f37c345d5b9",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"search\": \"dhosa\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/getDishesInState"
+},
+"response": []
+},
+{
+"name": "Get Featured Sellers",
+"id": "c0a1f62b-0a58-4b24-9f08-2c21d83eb2b9",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"sellerType\": \"restaurant\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/getFeaturedSellers"
+},
+"response": []
+}
+],
+"id": "93e83578-c490-4c9b-92e3-6d0fb3040fa7"
+},
+{
+"name": "Transport",
+"item": [
+{
+"name": "Place Transport Request",
+"id": "54797f65-0593-489a-997f-62a582c17906",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"source\" : [120, 68],\r\n    \"destination\": [120, 73],\r\n    \"type\": \"Package\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/placeTransportRequest"
+},
+"response": []
+}
+],
+"id": "aa75b2f7-c130-4190-8b21-f0eaa79ccea9"
+},
+{
+"name": "Reviews",
+"item": [
+{
+"name": "Add Product Review",
+"id": "8bd1fa21-fb15-4d8f-8f8e-4a252ecb3723",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"productId\": \"630518dc8cf689bb4ea34c78\",\r\n    \"review\": \"Awesome product\",\r\n    \"rating\": \"1\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/addProductReview"
+},
+"response": []
+},
+{
+"name": "Get Product All Reviews",
+"id": "e8851669-a6f3-4abb-a48f-8701cc01dca9",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"productId\": \"630518e08cf689bb4ea34c89\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/getProductsAllReviews"
+},
+"response": []
+}
+],
+"id": "06a4b197-fa9c-4f3e-b6e6-96db38d69a09"
+},
+{
+"name": "Get My Orders",
+"id": "bb1b4c96-4aef-414a-a05b-c9605ee731cd",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/shopper/getMyOrders"
+},
+"response": []
+}
+],
+"id": "05554950-64aa-4691-9f1e-4e7caba936d6"
+},
+{
+"name": "Vendor",
+"item": [
+{
+"name": "Authentication",
+"item": [
+{
+"name": "Register",
+"id": "66f8eaad-f364-4591-b8c0-7ca0faab1f62",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"fullName\": \"vendor\",\r\n    \"phone\": \"12345678890\",\r\n    \"password\": \"test1234\",\r\n    \"email\": \"vendor@example.com\",\r\n    \"latitude\": \"123456\",\r\n    \"longitude\": \"654321\",\r\n    \"adhaarFile\": \"https://www.godigit.com/content/dam/godigit/directportal/en/contenthm/pvc-aadhar-card-status.jpg\",\r\n    \"adhaarCardNumber\": \"9876543210\",\r\n    \"panCardNumber\": \"123ASD456FGH789\",\r\n    \"gst\": \"0987656789\",\r\n    \"bankAccountNumber\": \"9876543212\",\r\n    \"ifscCode\": \"SBIN000000\",\r\n    \"storeName\": \"storeName\",\r\n    \"storeRegistration\": \"storeRegistration\",\r\n    \"storeAddress\": \"storeAddress\",\r\n    \"pincode\": \"pincode\",\r\n    \"storeImage\": \"storeImage\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/vendor/register"
+},
+"response": []
+},
+{
+"name": "Login",
+"event": [
+{
+"listen": "test",
+"script": {
+"type": "text/javascript",
+"exec": [
+"pm.environment.set(\"jwt\", pm.response.json().token);"
+]
+}
+}
+],
+"id": "3c077629-2cc7-4cdd-9dd3-598acd4358b4",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"email\": \"milanrawat086@gmail.com\",\r\n    \"password\": \"test1234\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/vendor/login"
+},
+"response": []
+},
+{
+"name": "Forget Password",
+"id": "e3b83b4b-85fa-415a-ae2c-c9edf0a19141",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"phone\": \"919528825708\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/vendor/forgetPassword"
+},
+"response": []
+},
+{
+"name": "Reset Password",
+"id": "6b535048-55bf-47a4-8e1d-6a53c4d4f9b7",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"email\": \"milanrawat086@gmail.com\",\r\n    \"verificationCode\": \"164014\",\r\n    \"newPassword\": \"test1234\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/vendor/resetPassword"
+},
+"response": []
+},
+{
+"name": "Is Exists or Verified",
+"id": "df08c465-31d0-48b1-a5a9-154486fe9826",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"email\": \"milanrawat086@gmail.com\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/vendor/isExistsAndVerified"
+},
+"response": []
+}
+],
+"id": "e68923c9-2f32-4d57-b5d1-c9d335919c6c"
+},
+{
+"name": "Product And Variant",
+"item": [
+{
+"name": "Variant",
+"item": [
+{
+"name": "Add Variant",
+"event": [
+{
+"listen": "test",
+"script": {
+"id": "a7423408-56aa-439a-8d7d-fc58f8572cfd",
+"exec": [
+""
+],
+"type": "text/javascript"
+}
+}
+],
+"id": "6fad43b7-e07f-4847-b348-48db950d3cee",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"productId\": \"61fbe2c21a3b521c3364683c\",\r\n    \"color\": \"Blue\",\r\n    \"size\": \"Medium\",\r\n    \"type\": \"Clothing\",\r\n    \"quantity\": \"10\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/product/variant/addVariant"
+},
+"response": []
+},
+{
+"name": "Remove Variant",
+"id": "a87789b9-3575-4a6c-8bc4-2ff14fd56376",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "DELETE",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"productId\": \"61fbe2c21a3b521c3364683c\",\r\n    \"variantId\": \"61fbeca4a013f10bb1212e88\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/product/variant/removeVariant"
+},
+"response": []
+}
+],
+"id": "c5f1e72b-4380-4c4e-a2a6-dad78c2aff61"
+},
+{
+"name": "Add Product",
+"id": "d27c12ea-42db-4b9d-9b23-27c9bd4bf7a7",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"subCategory\": \"62cd5dbf343c78fc9285d27e\",\r\n    \"productTitle\": \"skirt\",\r\n    \"productDescription\": \"Some description\",\r\n    \"images\": [\r\n        \"https://myzon.s3.amazonaws.com/File_20211231_20364455_6160050481632904._SL1500_\",\r\n        \"https://myzon.s3.amazonaws.com/File_20211231_20364473_8179919529221384._SL1500_\",\r\n        \"https://myzon.s3.amazonaws.com/File_20211231_20364472_8062208424340225._SL1500_\",\r\n        \"https://myzon.s3.amazonaws.com/File_20211231_20364470_78166383064713._SL1500_\"\r\n    ],\r\n    \"price\": \"5000\",\r\n    \"state\": \"Uttar Pradesh\",\r\n    \"quantity\": 9\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/product/addProduct"
+},
+"response": []
+},
+{
+"name": "Get Product By Id",
+"id": "21ec43a9-f00e-4174-a4d5-cca49c2f8f85",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": {
+"raw": "{{URL}}/api/v1/user/product/getProductById?productId=61bde9670d5fb7a01c5e752f",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"product",
+"getProductById"
+],
+"query": [
+{
+"key": "productId",
+"value": "61bde9670d5fb7a01c5e752f"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Edit Product",
+"id": "1f3d9a5f-50fb-43e5-91be-a78c584d10c0",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"productId\": \"6301bdcfe042a91e550ebedc\",\r\n    \"subCategory\": \"62cc021caa28073aa0999226\",\r\n    \"productTitle\": \"Phone\",\r\n    \"productDescription\": \"Some Description\",\r\n    \"images\": [\r\n        \"https://unlimit-it.s3.amazonaws.com/File_2021921_11204702_949486080413134.jpeg\",\r\n        \"https://unlimit-it.s3.amazonaws.com/File_2021921_11204718_5970896134914188.jpg\"\r\n    ],\r\n    \"price\": \"15000\",\r\n    \"state\": \"Uttar Pradesh\",\r\n    \"quantity\": 9\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/product/editProduct"
+},
+"response": []
+},
+{
+"name": "Delete Product",
+"id": "beeb7e23-cb56-40e6-aeac-e9029154b63d",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "DELETE",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"productId\": \"61bde9670d5fb7a01c5e752f\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/product/deleteProduct"
+},
+"response": []
+},
+{
+"name": "Get All My Products",
+"id": "2e1c1b48-e137-4114-95d8-5d68111b154c",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWFmNzJhZjdmNmQ1OWRhY2E5OTlkZDYiLCJpYXQiOjE2NjA1ODA0NDUsImV4cCI6MTY2ODM1NjQ0NX0.OGLlT0hZXSN4ea9A3N_xCx1VpD9CaWazG_onF5H8UxQ"
+}
+},
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": {
+"raw": "{{URL}}/api/v1/user/product/getAllMyProducts?page=1&limit=20",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"product",
+"getAllMyProducts"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "20"
+}
+]
+}
+},
+"response": []
+}
+],
+"id": "1109a2ad-f060-47b3-b4ca-1f6e370dd64c"
+},
+{
+"name": "Orders",
+"item": [
+{
+"name": "Get Orders By Status",
+"id": "7c5fc5a4-6150-45e8-a633-6c7f8429a8b2",
+"protocolProfileBehavior": {
+"disableBodyPruning": true
+},
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": ""
+},
+"url": {
+"raw": "{{URL}}/api/v1/user/vendor/getOrdersByStatus?page=1&limit=10&status=PENDING",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"vendor",
+"getOrdersByStatus"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "10"
+},
+{
+"key": "status",
+"value": "PENDING"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Change Order Status",
+"id": "592996d5-c016-41cf-8486-f7777d0aaf1b",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"orderId\": \"872de1d22c56021c214f8e0a94d54321\",\r\n    \"changeTo\": \"DELIVERED\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/vendor/changeOrderStatus"
+},
+"response": []
+},
+{
+"name": "Request Withdrawal",
+"id": "9a9e5dd6-01bb-4f97-b1ef-dd6bf2ba2f4d",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/user/vendor/requestWithdrawal"
+},
+"response": []
+}
+],
+"id": "76fd0d77-7b8e-4c2a-9406-13b3c80fce35"
+}
+],
+"id": "c7cb6cc1-362c-447f-b735-946d511044b2"
+},
+{
+"name": "Grocer",
+"item": [
+{
+"name": "Authentication",
+"item": [
+{
+"name": "Register",
+"id": "d02a003a-9e46-4ff8-b317-60c522d7fb72",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"fullName\": \"Milan Rawat\",\r\n    \"phone\": \"91704369499\",\r\n    \"password\": \"test1234\",\r\n    \"email\": \"milan@example.com\",\r\n    \"latitude\": \"123456\",\r\n    \"longitude\": \"654321\",\r\n    \"adhaarFile\": \"Image link\",\r\n    \"adhaarCardNumber\": \"122351781\",\r\n    \"panCardNumber\": \"123AAD456FGH789\",\r\n    \"gst\": \"0987656759\",\r\n    \"bankAccountNumber\": \"9876543215\",\r\n    \"ifscCode\": \"SBIN000000\",\r\n    \"storeName\": \"storeName\",\r\n    \"storeRegistration\": \"storeRegistration\",\r\n    \"storeAddress\": \"storeAddress\",\r\n    \"pincode\": \"pincode\",\r\n    \"fssaiCode\": \"fssaiCode\",\r\n    \"storeImage\": \"storeImage\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/grocer/register"
+},
+"response": []
+},
+{
+"name": "Login",
+"event": [
+{
+"listen": "test",
+"script": {
+"type": "text/javascript",
+"exec": [
+"pm.environment.set(\"jwt\", pm.response.json().token);"
+]
+}
+}
+],
+"id": "714f21ae-8849-4676-9c4b-4526d21a7f87",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"email\": \"milanrwt@gmail.com\",\r\n    \"password\": \"test1234\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/grocer/login"
+},
+"response": []
+},
+{
+"name": "Forget Password",
+"id": "4419df1e-2019-4571-b4c1-d38ae783b168",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"phone\": \"919528825708\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/grocer/forgetPassword"
+},
+"response": []
+},
+{
+"name": "Reset Password",
+"id": "62134806-1edc-4ef9-9916-0bff48dfbb7f",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"email\": \"milanrawat086@gmail.com\",\r\n    \"verificationCode\": \"916514\",\r\n    \"newPassword\": \"test1234\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/grocer/resetPassword"
+},
+"response": []
+},
+{
+"name": "Is Exists Or Verified",
+"id": "cd3d66ce-369b-4b1d-a083-5bd2a4f07ea9",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"email\": \"milanrawat086@gmail.com\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/grocer/isExistsAndVerified"
+},
+"response": []
+}
+],
+"id": "5dd8d34a-2b15-41a6-94d2-bd0445dcae99"
+},
+{
+"name": "Grocery",
+"item": [
+{
+"name": "Add Grocery",
+"id": "76043ac4-2a9a-4167-bbce-193a1410390c",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"type\": \"62cc0257aa28073aa099922e\",\r\n    \"price\": \"25\",\r\n    \"state\": \"Kerala\",\r\n    \"groceryTitle\": \"Banana Chips\",\r\n    \"groceryDescription\": \"Premium quality Kerala banana chips\",\r\n    \"images\": [\r\n        \"https://myzon.s3.amazonaws.com/File_20211231_20364455_6160050481632904._SL1500_\",\r\n        \"https://myzon.s3.amazonaws.com/File_20211231_20364473_8179919529221384._SL1500_\",\r\n        \"https://myzon.s3.amazonaws.com/File_20211231_20364472_8062208424340225._SL1500_\",\r\n        \"https://myzon.s3.amazonaws.com/File_20211231_20364470_78166383064713._SL1500_\"\r\n    ]\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/grocery/addStuff"
+},
+"response": []
+},
+{
+"name": "Get All My Grocery",
+"id": "776cb71e-0286-4bae-8702-d287af439b59",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/grocery/getAllMyStuffs?page=1&limit=10",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"grocery",
+"getAllMyStuffs"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "10"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Get Grocery By Id",
+"id": "842953f4-93b6-4457-a551-6960f8fdd394",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/grocery/getStuffById?id=622f5b3c254f66297602fbad",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"grocery",
+"getStuffById"
+],
+"query": [
+{
+"key": "id",
+"value": "622f5b3c254f66297602fbad"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Edit Grocery",
+"id": "ce61c38a-e7fd-4505-90b4-a6ff3afbb51f",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"stuffId\": \"62fdebc1262b98b158a8d6e0\",\r\n    \"type\": \"61b4b064a1696046388d74fd\",\r\n    \"groceryTitle\": \"some grocery\",\r\n    \"groceryDescription\": \"Some Description\",\r\n    \"images\": [\r\n        \"https://myzon.s3.amazonaws.com/File_20211231_20364455_6160050481632904._SL1500_\",\r\n        \"https://myzon.s3.amazonaws.com/File_20211231_20364473_8179919529221384._SL1500_\",\r\n        \"https://myzon.s3.amazonaws.com/File_20211231_20364472_8062208424340225._SL1500_\",\r\n        \"https://myzon.s3.amazonaws.com/File_20211231_20364470_78166383064713._SL1500_\"\r\n    ],\r\n    \"price\": \"1500\",\r\n    \"state\": \"Uttar Pradesh\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/grocery/editStuff"
+},
+"response": []
+},
+{
+"name": "Delete Grocery",
+"id": "cf4e6c00-18af-4e84-90be-259d0444a89e",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "DELETE",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"stuffId\": \"623ffee7069b629f622c027c\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/grocery/deleteStuff"
+},
+"response": []
+},
+{
+"name": "Toggle Availablity",
+"id": "31ed76a7-8ef5-42fe-ba79-015a33465c8a",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"stuffId\": \"62cc42f2aa28073aa0999245\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/grocery/toggleAvailability"
+},
+"response": []
+}
+],
+"id": "13a3a70d-b8f9-4a26-a161-2f9e23812780"
+},
+{
+"name": "Orders",
+"item": [
+{
+"name": "Get Orders By Status",
+"id": "d7002254-cfa7-4343-a70e-08c5cfa95cc7",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/grocer/getGroceryOrdersByStatus?page=1&limit=10&status=PENDING",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"grocer",
+"getGroceryOrdersByStatus"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "10"
+},
+{
+"key": "status",
+"value": "PENDING"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Change Order Status",
+"id": "95d5d99e-b6c0-40d1-87b3-67fd0afeafe8",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"orderId\": \"431145c470406c2ca7023e393da95542\",\r\n    \"changeTo\": \"DELIVERED\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/grocer/changeOrderStatus"
+},
+"response": []
+},
+{
+"name": "Request Withdrawal",
+"id": "54e06a92-1637-402f-94f5-3f8370640b90",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/user/grocer/requestWithdrawal"
+},
+"response": []
+}
+],
+"id": "fcf19af9-03a7-4d8f-8ae3-bf99468dfa53"
+}
+],
+"id": "2481ea91-9c52-4b06-a6b7-0c79428a41ee"
+},
+{
+"name": "Restaurant",
+"item": [
+{
+"name": "Authentication",
+"item": [
+{
+"name": "Register",
+"id": "9d672905-16af-47c5-9f63-79eaf3682c7c",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"fullName\": \"Milan Rawat\",\r\n    \"phone\": \"919528825708\",\r\n    \"password\": \"test1234\",\r\n    \"email\": \"milanrawat@gmail.com\",\r\n    \"latitude\": \"123456\",\r\n    \"longitude\": \"654321\",\r\n    \"adhaarFile\": \"Image link\",\r\n    \"adhaarCardNumber\": \"123456789\",\r\n    \"panCardNumber\": \"123ASD456FGH789\",\r\n    \"gst\": \"0987656789\",\r\n    \"bankAccountNumber\": \"9876543212\",\r\n    \"ifscCode\": \"SBIN000000\",\r\n    \"storeName\": \"storeName\",\r\n    \"storeRegistration\": \"storeRegistration\",\r\n    \"storeAddress\": \"storeAddress\",\r\n    \"pincode\": \"pincode\",\r\n    \"fssaiCode\": \"fssaiCode\",\r\n    \"storeImage\": \"storeImage\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/restaurant/register"
+},
+"response": []
+},
+{
+"name": "Login",
+"event": [
+{
+"listen": "test",
+"script": {
+"type": "text/javascript",
+"exec": [
+"pm.environment.set(\"jwt\", pm.response.json().token);"
+]
+}
+}
+],
+"id": "926ab2d2-bb50-413a-8089-2fd18d7428a1",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"email\": \"nikhiljain@gmail.com\",\r\n    \"password\": \"test1234\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/restaurant/login"
+},
+"response": []
+},
+{
+"name": "Forget Password",
+"id": "799a3690-a069-4e7e-91f6-3c4e75b32cf7",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"email\": \"milanrawat086@gmail.com\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/restaurant/forgetPassword"
+},
+"response": []
+},
+{
+"name": "Reset Password",
+"id": "3d204046-97eb-4839-a36a-8edfdeefb0d4",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"email\": \"milanrawat086@gmail.com\",\r\n    \"verificationCode\": \"606348\",\r\n    \"newPassword\": \"test1234\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/restaurant/resetPassword"
+},
+"response": []
+},
+{
+"name": "Is Exists Or Verified",
+"id": "e7735bc7-a3c0-4561-9c42-3cc07219bbfb",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"email\": \"milanrawat086@gmail.com\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/restaurant/isExistsAndVerified"
+},
+"response": []
+}
+],
+"id": "c0183e3f-42ad-4163-a2b8-53bd176965f8"
+},
+{
+"name": "Menu Card And Dishes",
+"item": [
+{
+"name": "Add Menu",
+"id": "307f3402-b101-4212-b0b3-85f26a106b88",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"menuTitle\": \"South Indian\",\r\n    \"description\": \"Some south Indian foods like Dhosa, Idli\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/restaurant/addMenu"
+},
+"response": []
+},
+{
+"name": "Get Menu",
+"id": "1d01b1cc-4ca7-4d13-9d32-b66966a936bc",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/restaurant/getMenu?id=61e58dafcef05c44ff9cd179",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"restaurant",
+"getMenu"
+],
+"query": [
+{
+"key": "id",
+"value": "61e58dafcef05c44ff9cd179"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Add Dish To Menu",
+"id": "d83154e3-a896-461a-80dd-3f146bc420ff",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"menuId\": \"61e58dafcef05c44ff9cd179\",\r\n    \"dishName\": \"Dhosa\",\r\n    \"price\": \"200\",\r\n    \"description\": \"Dhosa with saambhar\",\r\n    \"veg\": true\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/restaurant/addDishToMenu"
+},
+"response": []
+},
+{
+"name": "Get All My Menus",
+"id": "9de3df81-abdf-45d6-bd3a-0501261cd7e0",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/user/restaurant/getAllMyMenus"
+},
+"response": []
+},
+{
+"name": "Update Menu",
+"id": "025d4030-069c-4306-af2c-7925d67e1e4f",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"menuId\": \"61e58dafcef05c44ff9cd179\",\r\n    \"menuTitle\": \"South Indian Food.\",\r\n    \"description\": \"Some south Indian foods like Dhosa, Idli, etc.\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/restaurant/updateMenu"
+},
+"response": []
+},
+{
+"name": "Remove Dish From Menu",
+"id": "3716a718-c3b9-4777-b939-876d092e001e",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"menuId\": \"61e58dafcef05c44ff9cd179\",\r\n    \"dishId\": \"61e58e1242699a9d3ec1f3fa\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/restaurant/removeDishFromMenu"
+},
+"response": []
+},
+{
+"name": "Delete Menu",
+"id": "7b0584e5-8d0d-4111-a51f-8532497523b4",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "DELETE",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"menuId\": \"61e58dafcef05c44ff9cd179\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/restaurant/deleteMenu"
+},
+"response": []
+},
+{
+"name": "Toggle Dish Availability",
+"id": "205ea126-792e-425b-96c3-f62df79b8aad",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"dishId\": \"61e58dafcef05c44ff9cd179\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/dish/toggleDishAvailability"
+},
+"response": []
+}
+],
+"id": "22c7b8fb-e6e6-4b3f-a71e-80e067592932"
+},
+{
+"name": "Orders",
+"item": [
+{
+"name": "Get Orders By Status",
+"id": "7083ace9-f132-4321-9e67-695c9bf6ecb9",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{URL}}/api/v1/user/restaurant/getFoodOrdersByStatus?page=1&limit=10&status=PENDING",
+"host": [
+"{{URL}}"
+],
+"path": [
+"api",
+"v1",
+"user",
+"restaurant",
+"getFoodOrdersByStatus"
+],
+"query": [
+{
+"key": "page",
+"value": "1"
+},
+{
+"key": "limit",
+"value": "10"
+},
+{
+"key": "status",
+"value": "PENDING"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "Change Order Status",
+"id": "a4d0d320-48cd-4e2b-9f6e-6466dc0d2123",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PATCH",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"orderId\": \"afdb6504f87a22cfbcf6dd90bdbdfa48\",\r\n    \"changeTo\": \"DISPATCHED\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/restaurant/changeOrderStatus"
+},
+"response": []
+},
+{
+"name": "Request Withdrawal",
+"id": "ffe59c30-888e-486e-8a71-4ec5fcd251d8",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/user/restaurant/requestWithdrawal"
+},
+"response": []
+}
+],
+"id": "a3e9e47c-98af-4c5b-b37d-e9c462e19f3a"
+}
+],
+"id": "b673d61b-57a5-4ab9-9b0b-23b9f0317619"
+},
+{
+"name": "Rider",
+"item": [
+{
+"name": "Authentication",
+"item": [
+{
+"name": "Register",
+"id": "7de6e001-7f50-4fad-923d-90d9f32b5796",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"fullName\": \"Milan Rawat\",\r\n    \"phone\": \"919528825708\",\r\n    \"password\": \"test1234\",\r\n    \"email\": \"milanrawat086@gmail.com\",\r\n    \"adhaarFile\": \"Image link\",\r\n    \"licenceFile\": \"image link\",\r\n    \"adhaarCardNumber\": \"1234567890\",\r\n    \"drivingLicence\": \"0987654321\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/rider/register"
+},
+"response": []
+},
+{
+"name": "Login",
+"event": [
+{
+"listen": "test",
+"script": {
+"type": "text/javascript",
+"exec": [
+"pm.environment.set(\"jwt\", pm.response.json().token);"
+]
+}
+}
+],
+"id": "1c6907fc-6e97-409a-8a3f-6d5bb8b17e22",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"phone\": \"+919528825708\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/rider/login"
+},
+"response": []
+},
+{
+"name": "Forget Password",
+"id": "16824b5b-ff7b-4391-864e-203c4a6cec86",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"phone\": \"919528825708\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/rider/forgetPassword"
+},
+"response": []
+},
+{
+"name": "Reset Password",
+"id": "5e84ad4d-8213-4032-82b9-fe34782782ce",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"phone\": \"919528825708\",\r\n    \"verificationCode\": \"122222\",\r\n    \"newPassword\": \"password\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/rider/resetPassword"
+},
+"response": []
+},
+{
+"name": "Code Verification",
+"event": [
+{
+"listen": "test",
+"script": {
+"type": "text/javascript",
+"exec": [
+"pm.environment.set(\"jwt\", pm.response.json().token);"
+]
+}
+}
+],
+"id": "66ed0cda-c426-45f5-9e9f-de8e9fc35ccb",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"phone\": \"+919528825708\",\r\n    \"verificationCode\": \"858858\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/rider/codeVerification"
+},
+"response": []
+}
+],
+"id": "93e6ba76-63ba-4050-b4c1-9d3af932a772"
+},
+{
+"name": "Toggle Availability",
+"id": "a77faf3f-1046-4565-bcd2-b01f6ac7fe29",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"available\": true\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/user/rider/toggleAvailability"
+},
+"response": []
+},
+{
+"name": "Get My Current Order",
+"id": "c9330ac5-91ac-4a1a-99a9-ca5b604189d1",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/user/rider/getMyCurrentOrder"
+},
+"response": []
+},
+{
+"name": "Get My Past Orders",
+"id": "e5b9a8e8-9aa2-4ab8-9b2e-347b262fda5e",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/user/rider/getMyPastOrders"
+},
+"response": []
+},
+{
+"name": "Mark Current Order as Delivered",
+"id": "0cd20411-e685-416d-9810-5f82bafa04f4",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/user/rider/deliverCurrentOrder"
+},
+"response": []
+}
+],
+"id": "858e61b4-a96f-494f-b191-ad849f07829f"
+},
+{
+"name": "Others",
+"item": [
+{
+"name": "Get Me",
+"id": "f69382e6-665a-4494-88bf-94a24901bad7",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "GET",
+"header": [],
+"url": "{{URL}}/api/v1/getMe"
+},
+"response": []
+},
+{
+"name": "Upload Files",
+"id": "4dd19f0c-ad77-49c4-9a61-a1ca5cea753b",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "POST",
+"header": [],
+"body": {
+"mode": "formdata",
+"formdata": [
+{
+"key": "files",
+"type": "file",
+"src": "/C:/Users/Milan Rawat/Downloads/A-current-business-model-of-mobile-commerce-Campanovo-Pigneur-7.png"
+}
+]
+},
+"url": "{{URL}}/api/v1/upload"
+},
+"response": []
+},
+{
+"name": "Update Me",
+"id": "357d5728-7487-4429-87fd-701b99247f3f",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PUT",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"fullName\" : \"Milan Rawat\",\r\n    \"phone\": \"919528825708\",\r\n    \"selectedAddress\": \"631dcf002ca37b12a298e9e1\",\r\n    \"profilePicture\" : \"https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/updateMe"
+},
+"response": []
+},
+{
+"name": "Update Me (Rider)",
+"id": "feaf2d99-a055-48a7-9595-b7139f5911a7",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PUT",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"fullName\": \"Milan\",\r\n    \"selectedAddress\": \"631dcf002ca37b12a298e9e1\",\r\n    \"profilePicture\": \"https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg\",\r\n    \"adhaarFile\": \"adhaarFile\",\r\n    \"vechileRegistrationPhoto\": \"vechileRegistrationPhoto\",\r\n    \"vechileRegistrationNumber\": \"vechileRegistrationNumber\",\r\n    \"vechileNumber\": \"vechileNumber\",\r\n    \"adhaarCardNumber\": \"adhaarCardNumber\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/updateMeForRider"
+},
+"response": []
+},
+{
+"name": "Update Store",
+"id": "9fe83e3c-2735-427a-9a9a-c2b6c5fa01a8",
+"request": {
+"auth": {
+"type": "bearer",
+"bearer": {
+"token": "{{jwt}}"
+}
+},
+"method": "PUT",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"storeName\": \"storeName\",\r\n    \"storeRegistration\": \"storeRegistration\",\r\n    \"storeAddress\": \"storeAddress\",\r\n    \"pincode\": \"pincode\",\r\n    \"fssaiCode\": \"fssaiCode\",\r\n    \"storeImage\": \"storeImage\",\r\n    \"latitude\": \"latitude\",\r\n    \"longitude\": \"longitude\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": "{{URL}}/api/v1/updateStore"
+},
+"response": []
+}
+], 
+"id": "687d692f-fa06-446d-9be9-f92ef0ff3cf2"
+}
+],
+"variable": [ 
+{
+"id": "37471252-4e8d-401a-8177-ef5c50729b0a",
+"key": "URL",
+"value": "http://3.111.219.243:8000"
+}
+]
+}

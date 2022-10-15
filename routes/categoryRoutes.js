@@ -18,7 +18,7 @@ router.patch(
   categoryController.updateCategory
 );
 router.delete(
-  "/deleteCategory",
+  "/deleteCategory/:id",
   checkPermission(["admin"]),
   categoryController.deleteCategory
 );
@@ -38,7 +38,7 @@ router.patch(
   subCategoryController.updateSubCategory
 );
 router.delete(
-  "/deleteSubCategory",
+  "/deleteSubCategory/:id",
   checkPermission(["admin"]),
   subCategoryController.deleteSubCategory
 );

@@ -93,15 +93,9 @@ exports.updateType = [
 ];
 
 exports.deleteType = [
-  body("id").not().isEmpty().withMessage("Type Id is required"),
-
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+  async (req, res) => {    
     try {
-      const { id } = req.body;
+      const { id } = req.params;
 
       const type = await Type.findOne({ _id: id });
       if (!type) {

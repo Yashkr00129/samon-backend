@@ -135,7 +135,7 @@ exports.getSubCategories = async (req, res) => {
   }
 };
 
-exports.getSubCategoriesByVendor =  [
+exports.getSubCategoriesByVendor = [
   body("vendorId").not().isEmpty().withMessage("Vendor Id is required"),
 
   async (req, res) => {
@@ -155,7 +155,7 @@ exports.getSubCategoriesByVendor =  [
         });
       }
 
-      products = await Product.find({ vendor: vendor._id }, { subCategory: 1, _id: 0}).populate("subCategory");
+      products = await Product.find({ vendor: vendor._id }, { subCategory: 1, _id: 0 }).populate("subCategory");
       subcategories = products.map(a => a.subCategory);
       subcategories = subcategories.filter((a, i) => subcategories.findIndex((s) => a.name === s.name) === i);
       res.status(200).json({
@@ -221,15 +221,9 @@ exports.updateSubCategory = [
 ];
 
 exports.deleteSubCategory = [
-  body("id").not().isEmpty().withMessage("Sub Category Id is required"),
-
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
     try {
-      const { id } = req.body;
+      const { id } = req.params;
 
       const subCategory = await Subcategory.findOne({ _id: id });
       if (!subCategory) {

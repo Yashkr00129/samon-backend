@@ -14,7 +14,7 @@ router.patch(
   typeController.updateType
 );
 router.delete(
-  "/deleteType",
+  "/deleteType/:id",
   checkPermission(["admin"]),
   typeController.deleteType
 );
