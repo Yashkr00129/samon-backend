@@ -95,4 +95,13 @@ router.get(
   restaurantController.requestWithdrawal
 );
 
+
+router.post("/approveWithdrawal",
+  checkPermission(["admin"]),
+  restaurantController.approveWithdrawalRequest
+);
+
+router.post('/rejectWithdrawal', checkPermission(["admin"]), restaurantController.rejectWithdrawalRequest)
+
+
 module.exports = router;

@@ -678,6 +678,7 @@ exports.getAllVendors = async (req, res) => {
           { fullName: { $regex: new RegExp(search, "i") } },
           { email: { $regex: new RegExp(search, "i") } },
           { phone: { $regex: new RegExp(search, "i") } },
+          { storeName: { $regex: new RegExp(search, "i") } }
         ],
       })
         .sort({ createdAt: sortBy })
@@ -954,6 +955,7 @@ exports.getAllGrocers = async (req, res) => {
           { fullName: { $regex: new RegExp(search, "i") } },
           { email: { $regex: new RegExp(search, "i") } },
           { phone: { $regex: new RegExp(search, "i") } },
+          { storeName: { $regex: new RegExp(search, "i") } },
         ],
       })
         .sort({ createdAt: sortBy })
@@ -1175,6 +1177,7 @@ exports.getAllRestaurants = async (req, res) => {
           { fullName: { $regex: new RegExp(search, "i") } },
           { email: { $regex: new RegExp(search, "i") } },
           { phone: { $regex: new RegExp(search, "i") } },
+          { storeName: { $regex: new RegExp(search, "i") } },
         ],
       })
         .sort({ createdAt: sortBy })

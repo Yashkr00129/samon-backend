@@ -4,6 +4,9 @@ const Rider = require("../models/riderModel");
 const Vendor = require("../models/vendorModel");
 const Withdrawal = require("../models/withdrawalModel");
 
+const { body, validationResult } = require("express-validator");
+
+
 const { throwErrorMessage } = require("../utils/errorHelper");
 
 exports.getOrdersByStatus = [
@@ -138,11 +141,12 @@ exports.changeOrderStatus = [
 ];
 
 exports.requestWithdrawal = [
+  body("amount").not().isEmpty().withMessage("Amount is required."),
   async (req, res) => {
     try {
       const seller = await Vendor.findOne({ _id: req.user._id });
 
-      console.log(seller.wallet)
+
       if (parseInt(seller.wallet) < 5000) {
         return res.status(403).json({
           status: false,
@@ -152,7 +156,7 @@ exports.requestWithdrawal = [
 
       const newWithdrawal = new Withdrawal({
         vendor: req.user._id,
-        amount: req.body.amount
+        amount: parseInt(seller.wallet)
       })
 
 

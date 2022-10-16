@@ -159,7 +159,7 @@ exports.login = [
       }
       res.status(403).json({
         status: false,
-        message: "Incorrect Phone no. or password!",
+        message: "Incorrect Email or password!",
       });
     } catch (err) {
       throwErrorMessage(err, res);
@@ -168,8 +168,7 @@ exports.login = [
 ];
 
 exports.sendVerificationCode = [
-  body("email").not().isEmpty().withMessage("Email Feild is required"),
-
+  body("email").not().isEmpty().withMessage("Email is required"),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

@@ -972,7 +972,7 @@ exports.placeOrder = async (req, res) => {
     const addressId = req.user.selectedAddress;
     const transactionId = req.user.transactionId;
 
-    const address = await Address.findOne({ _id: addressId });
+    const address = await Address.findOne({ _id: addressId }).populate("region");
     if (!address) {
       return res.status(404).json({
         status: true,
@@ -1041,7 +1041,9 @@ exports.placeOrder = async (req, res) => {
       shopper: req.user._id,
     }).countDocuments();
 
-    bill.totalPrice = totalPrice;
+    const deliveryCharges = parseInt(address.region.baseDelivery) + parseInt(address.region.packagingCost)
+
+    bill.totalPrice = totalPrice + deliveryCharges;
     bill.paidPrice = totalPrice;
     bill.products = products;
     bill.productOrdered = products.length;
@@ -1114,7 +1116,7 @@ exports.placeGroceryOrder = async (req, res) => {
   try {
     const addressId = req.user.selectedAddress;
     const transactionId = req.user.transactionId;
-    const address = await Address.findOne({ _id: addressId });
+    const address = await Address.findOne({ _id: addressId }).populate("region");
     if (!address) {
       return res.status(404).json({
         status: true,
@@ -1184,7 +1186,10 @@ exports.placeGroceryOrder = async (req, res) => {
       shopper: req.user._id,
     }).countDocuments();
 
-    groceryBill.totalPrice = totalPrice;
+    const deliveryCharges = parseInt(address.region.baseDelivery) + parseInt(address.region.packagingCost)
+
+
+    groceryBill.totalPrice = totalPrice + deliveryCharges
     groceryBill.paidPrice = totalPrice;
     groceryBill.stuffs = stuffs;
     groceryBill.stuffOrdered = stuffs.length;
@@ -1228,7 +1233,7 @@ exports.placeFoodOrder = async (req, res) => {
   try {
     const addressId = req.user.selectedAddress;
     const transactionId = req.user.transactionId;
-    const address = await Address.findOne({ _id: addressId });
+    const address = await Address.findOne({ _id: addressId }).populate("region");
     if (!address) {
       return res.status(404).json({
         status: true,
@@ -1288,7 +1293,10 @@ exports.placeFoodOrder = async (req, res) => {
       shopper: req.user._id,
     }).countDocuments();
 
-    foodBill.totalPrice = totalPrice;
+    const deliveryCharges = parseInt(address.region.baseDelivery) + parseInt(address.region.packagingCost)
+
+
+    foodBill.totalPrice = totalPrice + deliveryCharges
     foodBill.paidPrice = totalPrice;
     foodBill.dishes = dishes;
     foodBill.foodOrdered = dishes.length;

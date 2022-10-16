@@ -4,7 +4,14 @@ const withdrawSchema = new mongoose.Schema({
   vendor: {
     type: mongoose.Schema.ObjectId,
     ref: "Vendor",
-    required: [true, "Withdrawal must belong to a vendor"],
+  },
+  grocer: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Grocer",
+  },
+  restraunt: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Restraunt",
   },
   amount: {
     type: Number,

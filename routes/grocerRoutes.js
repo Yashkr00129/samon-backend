@@ -32,4 +32,12 @@ router.get(
   grocerController.requestWithdrawal
 );
 
+
+router.post("/approveWithdrawal",
+  checkPermission(["admin"]),
+  grocerController.approveWithdrawalRequest
+);
+
+router.post('/rejectWithdrawal', checkPermission(["admin"]), grocerController.rejectWithdrawalRequest)
+
 module.exports = router;

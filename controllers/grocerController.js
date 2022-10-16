@@ -139,7 +139,7 @@ exports.changeOrderStatus = [
 exports.requestWithdrawal = [
   async (req, res) => {
     try {
-      const seller = await Grocer.findOne({ _id: req.user._id });
+      const seller = await Restaurant.findOne({ _id: req.user._id });
 
       if (parseInt(seller.wallet) < 5000) {
         return res.status(403).json({
@@ -147,13 +147,72 @@ exports.requestWithdrawal = [
           message: "You can't withdraw amount (less than 5k)",
         });
       }
+      const newWithdrawal = new Withdrawal({
+        grocer: req.user._id,
+        amount: parseInt(seller.wallet)
+      })
 
+
+      await newWithdrawal.save();
       res.status(200).json({
         status: true,
         message: "Withdraw requested successfully!",
       });
+
     } catch (err) {
       throwErrorMessage(err, res);
     }
   },
 ];
+
+exports.approveWithdrawalRequest = async (req, res) => {
+  try {
+    const withdrawal = await Withdrawal.findOne({ _id: req.body.withdrawalId });
+    if (!withdrawal) {
+      return res.status(404).json({
+        status: false,
+        message: "Withdrawal request not found!",
+      });
+    }
+    const seller = await Vendor.findOne({ _id: withdrawal.grocer });
+    if (parseInt(seller.wallet) < withdrawal.amount) {
+      return res.status(403).json({
+        status: false,
+        message: "You can't withdraw amount (less than 5k)",
+      });
+    }
+    seller.wallet = seller.wallet - withdrawal.amount;
+    await seller.save();
+    withdrawal.status = "approved";
+    await withdrawal.save();
+    res.status(200).json({
+      status: true,
+      message: "Withdrawal request approved successfully!",
+    });
+  } catch (err) {
+    throwErrorMessage(err, res);
+  }
+}
+
+
+
+exports.rejectWithdrawalRequest = async (req, res) => {
+  try {
+    // First find the withdrawal
+    const withdrawal = await Withdrawal.findOne({ _id: req.body.withdrawalId });
+    if (!withdrawal) {
+      return res.status(404).json({
+        status: false,
+        message: "Withdrawal request not found!",
+      });
+    }
+    withdrawal.status = "declined";
+    await withdrawal.save();
+    res.status(200).json({
+      status: true,
+      message: "Withdrawal request declined successfully!",
+    });
+  } catch (err) {
+    throwErrorMessage(err, res);
+  }
+}
