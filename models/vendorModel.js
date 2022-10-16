@@ -6,6 +6,7 @@ const vendorSchema = new mongoose.Schema(
   {
     fullName: {
       type: String,
+      required: [true, "Full Name is required."]
     },
     phone: {
       type: String,
