@@ -22,6 +22,7 @@ const createToken = (user) => {
 };
 
 exports.register = [
+  body("fullName").not().isEmpty().withMessage("Full Name is required"),
   body("phone").not().isEmpty().withMessage("Email Id Feild is required"),
   body("email").not().isEmpty().withMessage("Email is required"),
   body("adhaarFile")
@@ -53,6 +54,8 @@ exports.register = [
         adhaarCardNumber,
         drivingLicence,
       } = req.body;
+
+      console.log(req.body)
 
       const rider = await Rider.findOne({
         $or: [{ phone: phone }, { adhaarCardNumber: adhaarCardNumber }],

@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const logReqBody = require("./middlewares/logReqBody");
 
 const adminRouter = require("./routes/adminRoutes");
 const categoryRouter = require("./routes/categoryRoutes");
@@ -25,6 +26,7 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 if (process.env.NODE_ENV !== "production") {
   app.use(cors());
 }
+app.use(logReqBody)
 
 // Routes
 app.get("/", (req, res) => {

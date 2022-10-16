@@ -6,6 +6,7 @@ const riderSchema = new mongoose.Schema(
   {
     fullName: {
       type: String,
+      required: true
     },
     phone: {
       type: String,
