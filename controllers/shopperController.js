@@ -1483,7 +1483,7 @@ exports.getRestaurantsInState = [
     }
     try {
       const search = req.body?.search ? req.body.search : "";
-      let restaurants = [];
+      let restaurants
       if (search) {
         restaurants = await Restaurant.find({
           $or: [
@@ -1493,34 +1493,34 @@ exports.getRestaurantsInState = [
             { storeName: { $regex: new RegExp(search, "i") } }
           ],
         }).populate("address");
-      } else {
-        restaurants = await Restaurant.find().populate("address");
+      } if (!search) {
+        restaurants = await Restaurant.find()
       }
 
       const user = await Shopper.findOne(
         { _id: req.user._id },
         { address: 1 }
       ).populate("address");
-      const states = [];
-      for (let address of user?.address) {
-        states.push(address?.state);
-      }
-      if (!states || !states.length > 0) {
-        return res.status(403).json({
-          status: false,
-          message: "Please add an address specifying the state!",
-        });
-      }
-      restaurants = restaurants.filter((a) => {
-        let flag = 0;
-        for (let add of a.address) {
-          if (states.includes(add.state)) {
-            flag = 1;
-            break;
-          }
-        }
-        return flag == 1;
-      });
+      // const states = [];
+      // for (let address of user?.address) {
+      //   states.push(address?.state);
+      // }
+      // if (!states || !states.length > 0) {
+      //   return res.status(403).json({
+      //     status: false,
+      //     message: "Please add an address specifying the state!",
+      //   });
+      // }
+      // restaurants = restaurants.filter((a) => {
+      //   let flag = 0;
+      //   for (let add of a.address) {
+      //     if (states.includes(add.state)) {
+      //       flag = 1;
+      //       break;
+      //     }
+      //   }
+      //   return flag == 1;
+      // });
 
       res.status(200).json({
         status: true,
