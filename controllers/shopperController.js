@@ -1405,16 +1405,16 @@ exports.getGrocersInState = [
           message: "Please add an address specifying the state!",
         });
       }
-      grocers = grocers.filter((a) => {
-        let flag = 0;
-        for (let add of a.address) {
-          if (states.includes(add.state)) {
-            flag = 1;
-            break;
-          }
-        }
-        return flag == 1;
-      });
+      // grocers = grocers.filter((a) => {
+      //   let flag = 0;
+      //   for (let add of a.address) {
+      //     if (states.includes(add.state)) {
+      //       flag = 1;
+      //       break;
+      //     }
+      //   }
+      //   return flag == 1;
+      // });
 
       res.status(200).json({
         status: true,
