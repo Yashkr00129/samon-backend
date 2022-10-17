@@ -1373,12 +1373,8 @@ exports.getGrocersInState = [
   // body("search").not().isEmpty().withMessage("Search keyword is required"),
 
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
     try {
-      const search = req.body?.search ? req.body.search : "";
+      const search = req.body.search
       let grocers,
         count = 0;
 
