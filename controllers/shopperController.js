@@ -1381,13 +1381,19 @@ exports.getGrocersInState = [
       const search = req.body?.search ? req.body.search : "";
       let grocers = [],
         count = 0;
-      grocers = await Grocer.find({
-        $or: [
-          { fullName: { $regex: new RegExp(search, "i") } },
-          { email: { $regex: new RegExp(search, "i") } },
-          { phone: { $regex: new RegExp(search, "i") } },
-        ],
-      }).populate("address");
+
+      if (search) {
+
+        grocers = await Grocer.find({
+          $or: [
+            { fullName: { $regex: new RegExp(search, "i") } },
+            { email: { $regex: new RegExp(search, "i") } },
+            { phone: { $regex: new RegExp(search, "i") } },
+          ],
+        }).populate("address");
+      } else {
+        grocers = await Grocer.find().populate("address")
+      }
 
       const user = await Shopper.findOne(
         { _id: req.user._id },
