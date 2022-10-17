@@ -210,9 +210,8 @@ exports.updateMeForRider = async (req, res) => {
       });
     }
 
-    const address = await Address.findById(selectedAddress);
 
-    user.selectedAddress = address._id
+    user.selectedAddress = selectedAddress;
     user.fullName = fullName ? fullName : user.fullName;
     user.profilePicture = profilePicture ? profilePicture : user.profilePicture;
     user.adhaarFile = adhaarFile ? adhaarFile : user.adhaarFile;

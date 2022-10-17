@@ -33,8 +33,7 @@ const riderSchema = new mongoose.Schema(
       type: String,
     },
     selectedAddress: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Address",
+      type: String,
     },
     profilePicture: {
       type: String,
