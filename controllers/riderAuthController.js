@@ -55,7 +55,6 @@ exports.register = [
         drivingLicence,
       } = req.body;
 
-      console.log(req.body)
 
       const rider = await Rider.findOne({
         $or: [{ phone: phone }, { adhaarCardNumber: adhaarCardNumber }],

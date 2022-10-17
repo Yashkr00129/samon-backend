@@ -26,7 +26,6 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 if (process.env.NODE_ENV !== "production") {
   app.use(cors());
 }
-app.use(logReqBody)
 
 // Routes
 app.get("/", (req, res) => {
