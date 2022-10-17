@@ -1379,19 +1379,19 @@ exports.getGrocersInState = [
     }
     try {
       const search = req.body?.search ? req.body.search : "";
-      let grocers = [],
+      let grocers,
         count = 0;
 
       if (search) {
-
         grocers = await Grocer.find({
           $or: [
             { fullName: { $regex: new RegExp(search, "i") } },
             { email: { $regex: new RegExp(search, "i") } },
             { phone: { $regex: new RegExp(search, "i") } },
+            { storeName: { $regex: new RegExp(search, "i") } },
           ],
         }).populate("address");
-      } else {
+      } if (!search) {
         grocers = await Grocer.find().populate("address")
       }
 
