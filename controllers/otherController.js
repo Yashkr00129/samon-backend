@@ -210,7 +210,7 @@ exports.updateMeForRider = async (req, res) => {
       });
     }
 
-    user.selectedAddress = selectedAddress;
+    user.selectedAddress = selectedAddress+"";
     user.fullName = fullName ? fullName : user.fullName;
     user.profilePicture = profilePicture ? profilePicture : user.profilePicture;
     user.adhaarFile = adhaarFile ? adhaarFile : user.adhaarFile;
