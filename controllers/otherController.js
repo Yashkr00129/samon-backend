@@ -3,6 +3,7 @@ const Vendor = require("../models/vendorModel");
 const Restaurant = require("../models/restaurantModel");
 const Rider = require("../models/riderModel");
 const Grocer = require("../models/grocerModel");
+const Address = require("../models/addressModel")
 
 const { throwErrorMessage } = require("../utils/errorHelper");
 
@@ -45,9 +46,8 @@ exports.uploadFile = [
       let second = fullDate.getSeconds();
       let milliSecond = fullDate.getMilliseconds();
 
-      let name = `File_${year}${month}${day}_${time}${minute}${second}${milliSecond}_${
-        Math.random().toString().split(".")[1]
-      }.${fileType}`;
+      let name = `File_${year}${month}${day}_${time}${minute}${second}${milliSecond}_${Math.random().toString().split(".")[1]
+        }.${fileType}`;
 
       const params = {
         Bucket: AWSCredentials.bucketName,
@@ -210,7 +210,9 @@ exports.updateMeForRider = async (req, res) => {
       });
     }
 
-    user.selectedAddress = selectedAddress+"";
+    const address = await Address.findById(selectedAddress);
+
+    user.selectedAddress = address._id
     user.fullName = fullName ? fullName : user.fullName;
     user.profilePicture = profilePicture ? profilePicture : user.profilePicture;
     user.adhaarFile = adhaarFile ? adhaarFile : user.adhaarFile;
