@@ -71,13 +71,13 @@ exports.deliverCurrentOrder = async (req, res) => {
         message: "You don't have any current order",
       });
     }
-    let currentOrder = rider.currentOrder;
+    let { currentOrder } = rider;
     const order =
       (await Porder.findOne({ _id: currentOrder })) ||
       (await Forder.findOne({ _id: currentOrder })) ||
       (await Gorder.findOne({ _id: currentOrder }));
     order.status = "DELIVERED";
-    order.save();
+    await order.save();
 
     let pastOrders = [];
     pastOrders = rider.pastOrders;
@@ -92,6 +92,6 @@ exports.deliverCurrentOrder = async (req, res) => {
       rider,
     });
   } catch (err) {
-    throwErrorMessage(err, res);
+    console.log(err);
   }
 };
