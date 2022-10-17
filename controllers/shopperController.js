@@ -1388,7 +1388,7 @@ exports.getGrocersInState = [
           ],
         }).populate("address");
       } if (!search) {
-        grocers = await Grocer.find()
+        grocers = await Grocer.find().populate("address")
       }
 
       const user = await Shopper.findOne(
