@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const logReqBody = require("./middlewares/logReqBody");
 
 const adminRouter = require("./routes/adminRoutes");
 const categoryRouter = require("./routes/categoryRoutes");

@@ -1481,19 +1481,21 @@ exports.getRestaurantsInState = [
     }
     try {
       const search = req.body?.search ? req.body.search : "";
-      let restaurants = [];
-      restaurants = await Restaurant.find({
-        $or: [
-          { fullName: { $regex: new RegExp(search, "i") } },
-          { email: { $regex: new RegExp(search, "i") } },
-          { phone: { $regex: new RegExp(search, "i") } },
-        ],
-      }).populate("address");
 
       const user = await Shopper.findOne(
         { _id: req.user._id },
         { address: 1 }
       ).populate("address");
+
+      let restaurants = await Restaurant.find({
+        $or: [
+          { fullName: { $regex: new RegExp(search, "i") } },
+          { email: { $regex: new RegExp(search, "i") } },
+          { phone: { $regex: new RegExp(search, "i") } },
+          { region: user.address.region }
+        ],
+      }).populate("address");
+
       const states = [];
       for (let address of user?.address) {
         states.push(address?.state);
