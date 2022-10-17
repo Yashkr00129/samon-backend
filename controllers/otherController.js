@@ -203,13 +203,14 @@ exports.updateMeForRider = async (req, res) => {
 
     const user = await Rider.findById(req.user._id);
 
+    console.log(req.body)
+
     if (!user) {
       return res.status(404).json({
         status: false,
         message: "User not found!",
       });
     }
-
 
     user.selectedAddress = selectedAddress;
     user.fullName = fullName ? fullName : user.fullName;
