@@ -207,6 +207,12 @@ router.get(
   adminController.getTransportRequests
 );
 
+router.delete(
+  "/deleteTransportRequests",
+  checkPermission(["admin", "member"]),
+  adminController.deleteTransportRequests
+);
+
 router.post(
   "/asignOrderToRider",
   checkPermission(["admin", "member"]),
