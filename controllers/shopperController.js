@@ -17,6 +17,7 @@ const Porder = require("../models/porderModel");
 const Gorder = require("../models/gorderModel");
 const Forder = require("../models/forderModel");
 const Torder = require("../models/torderModel");
+const Region = require("../models/regionModel");
 const crypto = require("crypto");
 
 const { throwErrorMessage } = require("../utils/errorHelper");
@@ -972,7 +973,9 @@ exports.placeOrder = async (req, res) => {
     const addressId = req.user.selectedAddress;
     const transactionId = req.user.transactionId;
 
-    const address = await Address.findOne({ _id: addressId }).populate("region");
+    const address = await Address.findOne({ _id: addressId }).populate(
+      "region"
+    );
     if (!address) {
       return res.status(404).json({
         status: true,
@@ -1041,7 +1044,9 @@ exports.placeOrder = async (req, res) => {
       shopper: req.user._id,
     }).countDocuments();
 
-    const deliveryCharges = parseInt(address.region.baseDelivery) + parseInt(address.region.packagingCost)
+    const deliveryCharges =
+      parseInt(address.region.baseDelivery) +
+      parseInt(address.region.packagingCost);
 
     bill.totalPrice = totalPrice + deliveryCharges;
     bill.paidPrice = totalPrice;
@@ -1116,7 +1121,9 @@ exports.placeGroceryOrder = async (req, res) => {
   try {
     const addressId = req.user.selectedAddress;
     const transactionId = req.user.transactionId;
-    const address = await Address.findOne({ _id: addressId }).populate("region");
+    const address = await Address.findOne({ _id: addressId }).populate(
+      "region"
+    );
     if (!address) {
       return res.status(404).json({
         status: true,
@@ -1186,10 +1193,11 @@ exports.placeGroceryOrder = async (req, res) => {
       shopper: req.user._id,
     }).countDocuments();
 
-    const deliveryCharges = parseInt(address.region.baseDelivery) + parseInt(address.region.packagingCost)
+    const deliveryCharges =
+      parseInt(address.region.baseDelivery) +
+      parseInt(address.region.packagingCost);
 
-
-    groceryBill.totalPrice = totalPrice + deliveryCharges
+    groceryBill.totalPrice = totalPrice + deliveryCharges;
     groceryBill.paidPrice = totalPrice;
     groceryBill.stuffs = stuffs;
     groceryBill.stuffOrdered = stuffs.length;
@@ -1233,7 +1241,9 @@ exports.placeFoodOrder = async (req, res) => {
   try {
     const addressId = req.user.selectedAddress;
     const transactionId = req.user.transactionId;
-    const address = await Address.findOne({ _id: addressId }).populate("region");
+    const address = await Address.findOne({ _id: addressId }).populate(
+      "region"
+    );
     if (!address) {
       return res.status(404).json({
         status: true,
@@ -1293,10 +1303,11 @@ exports.placeFoodOrder = async (req, res) => {
       shopper: req.user._id,
     }).countDocuments();
 
-    const deliveryCharges = parseInt(address.region.baseDelivery) + parseInt(address.region.packagingCost)
+    const deliveryCharges =
+      parseInt(address.region.baseDelivery) +
+      parseInt(address.region.packagingCost);
 
-
-    foodBill.totalPrice = totalPrice + deliveryCharges
+    foodBill.totalPrice = totalPrice + deliveryCharges;
     foodBill.paidPrice = totalPrice;
     foodBill.dishes = dishes;
     foodBill.foodOrdered = dishes.length;
@@ -1337,23 +1348,49 @@ exports.getMyFoodOrders = async (req, res) => {
 
 // ---------TRANSPORT
 exports.placeTransportRequest = [
-  body("source").not().isEmpty().withMessage("Source location is required"),
-  body("destination").not().isEmpty().withMessage("Destination is required"),
-  body("type").not().isEmpty().withMessage("Type is required"),
-
+  body("fullName").not().isEmpty().withMessage("Full Name is required"),
+  body("phoneNumber").not().isEmpty().withMessage("Phone Number is required"),
+  body("pickupAddress")
+    .not()
+    .isEmpty()
+    .withMessage("Pickup Address is required"),
+  body("dropAddress").not().isEmpty().withMessage("Drop Address is required"),
+  body("region").not().isEmpty().withMessage("Region Id is required"),
+  body("transportType")
+    .not()
+    .isEmpty()
+    .withMessage("Transport type is required"),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
     try {
-      const { source, destination, type } = req.body;
+      const {
+        fullName,
+        phoneNumber,
+        pickupAddress,
+        dropAddress,
+        region,
+        transportType,
+      } = req.body;
+
+      const regionExists = await Region.findOne({ _id: region });
+      if (!regionExists) {
+        return res.status(404).json({
+          status: false,
+          message: "Region not found",
+        });
+      }
       let orderId = crypto.randomBytes(16).toString("hex");
       let order = await Torder.create({
         shopper: req.user._id,
-        source: { type: "Point", coordinates: source },
-        destination: { type: "Point", coordinates: destination },
-        transportType: type,
+        fullName,
+        phoneNumber,
+        pickupAddress,
+        dropAddress,
+        region,
+        transportType,
         requestId: orderId,
       });
 
@@ -1374,7 +1411,7 @@ exports.getGrocersInState = [
 
   async (req, res) => {
     try {
-      const search = req.body.search
+      const search = req.body.search;
       let grocers,
         count = 0;
 
@@ -1387,8 +1424,9 @@ exports.getGrocersInState = [
             { storeName: { $regex: new RegExp(search, "i") } },
           ],
         }).populate("address");
-      } if (!search) {
-        grocers = await Grocer.find().populate("address")
+      }
+      if (!search) {
+        grocers = await Grocer.find().populate("address");
       }
 
       const user = await Shopper.findOne(
@@ -1422,7 +1460,7 @@ exports.getGrocersInState = [
         grocers: grocers,
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   },
 ];
@@ -1483,18 +1521,19 @@ exports.getRestaurantsInState = [
     }
     try {
       const search = req.body?.search ? req.body.search : "";
-      let restaurants
+      let restaurants;
       if (search) {
         restaurants = await Restaurant.find({
           $or: [
             { fullName: { $regex: new RegExp(search, "i") } },
             { email: { $regex: new RegExp(search, "i") } },
             { phone: { $regex: new RegExp(search, "i") } },
-            { storeName: { $regex: new RegExp(search, "i") } }
+            { storeName: { $regex: new RegExp(search, "i") } },
           ],
         }).populate("address");
-      } if (!search) {
-        restaurants = await Restaurant.find()
+      }
+      if (!search) {
+        restaurants = await Restaurant.find();
       }
 
       const user = await Shopper.findOne(

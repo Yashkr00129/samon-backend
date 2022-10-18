@@ -6,37 +6,14 @@ const torderSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: "Shopper",
     },
-    source: {
-        type: {
-            type: String,
-            enum: ['Point'],
-            default: 'Point',
-            required: true
-        },
-        coordinates: {
-            type: [Number],
-            required: true
-        }
-    },
-    destination: {
-        type: {
-            type: String,
-            enum: ['Point'],
-            default: 'Point',
-            required: true
-        },
-        coordinates: {
-            type: [Number],
-            required: true
-        }
-    },
-    transportType: {
-      type: String,
-      enum: [
-        "Person",
-        "Package",
-      ],
-      default:"Package",
+    fullName: String,
+    phoneNumber: String,
+    pickupAddress: String,
+    dropAddress: String,
+    transportType: String,
+    region: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Region",
     },
     rider: {
       type: mongoose.Schema.ObjectId,
@@ -64,6 +41,11 @@ const torderSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+torderSchema.pre(/^find/, function (next) {
+  this.populate("region");
+  next();
+});
 
 const Torder = mongoose.model("Torder", torderSchema);
 
