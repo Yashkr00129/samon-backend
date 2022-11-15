@@ -16,6 +16,7 @@ const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { throwErrorMessage } = require("../utils/errorHelper");
+const { findOne } = require("../models/shopperModel");
 
 const createToken = (user) => {
   return jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
@@ -678,7 +679,7 @@ exports.getAllVendors = async (req, res) => {
           { fullName: { $regex: new RegExp(search, "i") } },
           { email: { $regex: new RegExp(search, "i") } },
           { phone: { $regex: new RegExp(search, "i") } },
-          { storeName: { $regex: new RegExp(search, "i") } }
+          { storeName: { $regex: new RegExp(search, "i") } },
         ],
       })
         .sort({ createdAt: sortBy })
@@ -1077,7 +1078,6 @@ exports.approveOrRejectRestraunt = [
     }
   },
 ];
-
 
 exports.approveOrRejectRider = [
   body("riderId").not().isEmpty().withMessage("Vendor Id is required"),
@@ -1593,6 +1593,35 @@ exports.getTransportRequests = async (req, res) => {
   }
 };
 
+exports.deleteTransportRequests = async (req, res) => {
+  try {
+    let tId = req.body.transportId;
+    if(!tId) {
+      return res.status(403).json({
+        status: false,
+        message: "Transport Id is required"
+      })
+    }
+    const transport = await Torder.findOne({_id: tId});
+
+    if(!transport) {
+      return res.status(404).json({
+        status: false,
+        message: "Transport Request not Found!"
+      })
+    }
+
+    await Torder.findOneAndDelete({_id: transport._id})
+
+    res.status(200).json({
+      status: true,
+      message: "Transport Request deleted successfully"
+    });
+  } catch (err) {
+    throwErrorMessage(err, res);
+  }
+};
+
 exports.asignOrderToRider = [
   body("riderId").not().isEmpty().withMessage("Rider Id is required"),
   body("orderId").not().isEmpty().withMessage("Order Id is required"),
@@ -1661,15 +1690,14 @@ exports.asignOrderToRider = [
   },
 ];
 
-
 exports.getAllForders = async (req, res) => {
   try {
-    const fOrders = await Forder.find().populate("restaurant")
+    const fOrders = await Forder.find();
     res.send({
       status: true,
-      forders: fOrders
-    })
+      forders: fOrders,
+    });
   } catch (err) {
-    console.log(err.message)
+    console.log(err.message);
   }
-}
+};
