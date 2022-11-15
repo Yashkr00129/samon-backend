@@ -1664,7 +1664,7 @@ exports.asignOrderToRider = [
 
 exports.getAllForders = async (req, res) => {
   try {
-    const fOrders = await Forder.find()
+    const fOrders = await Forder.find().populate("restaurant")
     res.send({
       status: true,
       forders: fOrders

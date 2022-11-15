@@ -59,6 +59,7 @@ forderSchema.pre(/^find/, function (next) {
   this.populate("dishes.dish");
   this.populate("shopper");
   this.populate("restaurant");
+  this.populate("rider")
   next();
 });
 
