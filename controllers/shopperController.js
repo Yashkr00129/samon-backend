@@ -23,6 +23,7 @@ const crypto = require("crypto");
 const { throwErrorMessage } = require("../utils/errorHelper");
 const { body, validationResult } = require("express-validator");
 const Order = require("../models/orderModel");
+const { sendOrderNotification } = require("../utils/pushNotification");
 
 exports.addToCart = [
   body("productId").not().isEmpty().withMessage("Product Id is required"),
@@ -1057,6 +1058,14 @@ exports.placeOrder = async (req, res) => {
 
     await bill.save();
     cart.delete();
+
+    sendOrderNotification(
+      cart.products[0].product.vendor,
+      "vendor",
+      orderId,
+      req.user.fullName
+    );
+
     res.status(201).json({
       status: true,
       message: "Order Placed",
@@ -1206,6 +1215,14 @@ exports.placeGroceryOrder = async (req, res) => {
 
     await groceryBill.save();
     groceryCart.delete();
+
+    sendOrderNotification(
+      groceryCart.stuffs[0].stuff.grocer,
+      "grocer",
+      orderId,
+      req.user.fullName
+    );
+
     res.status(201).json({
       status: true,
       message: "Order Placed",
@@ -1316,6 +1333,14 @@ exports.placeFoodOrder = async (req, res) => {
 
     await foodBill.save();
     // foodCart.delete();
+
+    sendOrderNotification(
+      foodCart.dishes[0].dish.restaurant,
+      "restaurant",
+      orderId,
+      req.user.fullName
+    );
+
     res.status(201).json({
       status: true,
       message: "Order Placed",

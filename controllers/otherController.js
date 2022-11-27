@@ -3,12 +3,15 @@ const Vendor = require("../models/vendorModel");
 const Restaurant = require("../models/restaurantModel");
 const Rider = require("../models/riderModel");
 const Grocer = require("../models/grocerModel");
-const Address = require("../models/addressModel")
+const Address = require("../models/addressModel");
+const Banner = require("../models/bannerModel");
+const FCM = require("../models/fcmModel");
 
 const { throwErrorMessage } = require("../utils/errorHelper");
 
 const multer = require("multer");
 const AWS = require("aws-sdk");
+const { body, validationResult } = require("express-validator");
 require("dotenv/config");
 
 const AWSCredentials = {
@@ -46,8 +49,9 @@ exports.uploadFile = [
       let second = fullDate.getSeconds();
       let milliSecond = fullDate.getMilliseconds();
 
-      let name = `File_${year}${month}${day}_${time}${minute}${second}${milliSecond}_${Math.random().toString().split(".")[1]
-        }.${fileType}`;
+      let name = `File_${year}${month}${day}_${time}${minute}${second}${milliSecond}_${
+        Math.random().toString().split(".")[1]
+      }.${fileType}`;
 
       const params = {
         Bucket: AWSCredentials.bucketName,
@@ -203,7 +207,7 @@ exports.updateMeForRider = async (req, res) => {
 
     const user = await Rider.findById(req.user._id);
 
-    console.log(req.body)
+    console.log(req.body);
 
     if (!user) {
       return res.status(404).json({
@@ -234,6 +238,50 @@ exports.updateMeForRider = async (req, res) => {
       message: "Profile updated successfully!",
       user,
     });
+  } catch (err) {
+    throwErrorMessage(err, res);
+  }
+};
+
+exports.getBanners = async (req, res) => {
+  try {
+    const banners = await Banner.find();
+    res.status(200).json({ status: true, banners });
+  } catch (err) {
+    throwErrorMessage(err, res);
+  }
+};
+
+exports.updateFCM = [
+  body("fcmToken").not().isEmpty().withMessage("fcmToken is required"),
+  body("deviceId").not().isEmpty().withMessage("deviceId is required"),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+      const { fcmToken, deviceId } = req.body;
+      const user = req.user._id;
+      const userType = req.user.userType;
+      await FCM.findOneAndUpdate(
+        { user, userType },
+        { fcmToken, deviceId },
+        { upsert: true }
+      );
+      res.status(200).json({ status: true, message: "FCM token updated." });
+    } catch (err) {
+      throwErrorMessage(err, res);
+    }
+  },
+];
+
+exports.deleteFCM = async (req, res) => {
+  try {
+    const user = req.user._id;
+    const userType = req.user.userType;
+    await FCM.findOneAndDelete({ user, userType });
+    res.status(200).json({ status: true, message: "FCM Token Deleted" });
   } catch (err) {
     throwErrorMessage(err, res);
   }

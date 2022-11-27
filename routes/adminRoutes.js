@@ -128,7 +128,7 @@ router.post(
 );
 
 // -----------FORDERS
-router.get('/getAllForders', adminController.getAllForders);
+router.get("/getAllForders", adminController.getAllForders);
 
 // -----------RIDERS
 router.post(
@@ -218,5 +218,11 @@ router.post(
   checkPermission(["admin", "member"]),
   adminController.asignOrderToRider
 );
+
+//---------- BANNERS
+router
+  .route("/banner")
+  .post(checkPermission(["admin"]), adminController.createBanner)
+  .delete(checkPermission(["admin"]), adminController.deleteBanner);
 
 module.exports = router;

@@ -11,12 +11,14 @@ const Forder = require("../models/forderModel");
 const Torder = require("../models/torderModel");
 const Stuff = require("../models/stuffModel");
 const Menu = require("../models/menuModel");
+const Banner = require("../models/bannerModel");
 
-const { body, validationResult } = require("express-validator");
+const { body, query, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { throwErrorMessage } = require("../utils/errorHelper");
 const { findOne } = require("../models/shopperModel");
+const { deleteFile } = require("../utils/s3Functions");
 
 const createToken = (user) => {
   return jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
@@ -74,7 +76,7 @@ exports.login = [
   async (req, res) => {
     try {
       const { email, password } = req.body;
-
+      console.log({ email, password });
       const member = await Member.findOne({ email: email }).select("+password");
       if (!member) {
         return res.status(404).json({
@@ -1596,26 +1598,26 @@ exports.getTransportRequests = async (req, res) => {
 exports.deleteTransportRequests = async (req, res) => {
   try {
     let tId = req.body.transportId;
-    if(!tId) {
+    if (!tId) {
       return res.status(403).json({
         status: false,
-        message: "Transport Id is required"
-      })
+        message: "Transport Id is required",
+      });
     }
-    const transport = await Torder.findOne({_id: tId});
+    const transport = await Torder.findOne({ _id: tId });
 
-    if(!transport) {
+    if (!transport) {
       return res.status(404).json({
         status: false,
-        message: "Transport Request not Found!"
-      })
+        message: "Transport Request not Found!",
+      });
     }
 
-    await Torder.findOneAndDelete({_id: transport._id})
+    await Torder.findOneAndDelete({ _id: transport._id });
 
     res.status(200).json({
       status: true,
-      message: "Transport Request deleted successfully"
+      message: "Transport Request deleted successfully",
     });
   } catch (err) {
     throwErrorMessage(err, res);
@@ -1701,3 +1703,40 @@ exports.getAllForders = async (req, res) => {
     console.log(err.message);
   }
 };
+
+exports.createBanner = [
+  body("mediaLink").not().isEmpty().withMessage("Media Link is required"),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+      const { mediaLink, no, link } = req.body;
+      const banner = await Banner.create({ mediaLink, no, link });
+      res.status(200).json({ status: true, message: "Banner Created", banner });
+    } catch (err) {
+      throwErrorMessage(err, res);
+    }
+  },
+];
+
+exports.deleteBanner = [
+  query("id").not().isEmpty().withMessage("id Field is required"),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+      const { id } = req.query;
+      const banner = await Banner.findByIdAndDelete(id);
+      await deleteFile(banner._doc.mediaLink);
+      res
+        .status(200)
+        .json({ status: true, message: "Banner deleted successfully" });
+    } catch (err) {
+      throwErrorMessage(err, res);
+    }
+  },
+];
