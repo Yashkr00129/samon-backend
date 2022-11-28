@@ -30,4 +30,28 @@ router.put(
   otherController.updateMeForRider
 );
 
+router.get(
+  "/banner",
+  checkPermission([
+    "admin",
+    "member",
+    "restaurant",
+    "grocer",
+    "vendor",
+    "shopper",
+    "rider",
+  ]),
+  otherController.getBanners
+);
+
+router
+  .route("/fcm")
+  .post(
+    checkPermission(["restaurant", "grocer", "vendor"]),
+    otherController.updateFCM
+  )
+  .delete(
+    checkPermission(["grocer", "restaurant", "vendor"]),
+    otherController.deleteFCM
+  );
 module.exports = router;
