@@ -589,7 +589,7 @@ exports.getAllShoppers = async (req, res) => {
       });
     }
     let page = parseInt(req.query.page ? req.query.page : 1);
-    let limit = parseInt(req.query.limit ? req.query.limit : 10);
+    let limit = parseInt(req.query.limit ? req.query.limit : 1000);
     let search = req.query.search ? req.query.search : "";
     let sort = req.query.sort ? req.query.sort : "new";
     let skipValue = (page - 1) * limit;
