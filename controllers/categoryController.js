@@ -146,12 +146,25 @@ exports.getVendorsByCategory = [
 
       let vendors = [];
       for (let subcategory of subCategories) {
-        products = await Product.find({ subCategory: subcategory._id }, { vendor: 1 }).populate("vendor");
+        products = await Product.find(
+          { subCategory: subcategory._id },
+          { vendor: 1 }
+        ).populate("vendor");
         for (let product of products) {
           vendors.push(product.vendor);
         }
       }
-      vendors = vendors.filter((a, i) => vendors.findIndex((s) => a.adhaarCardNumber === s.adhaarCardNumber) === i);
+      vendors = vendors.filter(
+        (a, i) =>
+          vendors.findIndex(
+            (s) => a.adhaarCardNumber === s.adhaarCardNumber
+          ) === i
+      );
+
+      vendors = vendors.filter(
+        (vendor) => vendor.address.city === req.user.address.city
+      );
+
       res.status(200).json({
         status: true,
         vendors: vendors,

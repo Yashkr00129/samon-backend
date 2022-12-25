@@ -714,6 +714,13 @@ exports.getAllVendors = async (req, res) => {
       res.totalEarnings = totalEarnings;
       users.push(res);
     }
+
+    // all vendors have an address, inside the address they have a field called city
+    // now i want to check who is sending the request
+    // from that i want the city of the address field
+    // then i want to send all the vendors for that city
+    // plz write code for that
+
     res.status(200).json({
       status: true,
       totalData: count,

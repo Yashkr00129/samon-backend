@@ -1451,7 +1451,9 @@ exports.getGrocersInState = [
         }).populate("address");
       }
       if (!search) {
-        grocers = await Grocer.find().populate("address");
+        grocers = await Grocer.find({
+          address: { city: req.user.address.city },
+        }).populate("address");
       }
 
       const user = await Shopper.findOne(
@@ -1558,7 +1560,9 @@ exports.getRestaurantsInState = [
         }).populate("address");
       }
       if (!search) {
-        restaurants = await Restaurant.find();
+        restaurants = await Restaurant.find({
+          address: { city: req.user.address.city },
+        });
       }
 
       const user = await Shopper.findOne(

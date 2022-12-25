@@ -3,7 +3,7 @@ const { checkPermission } = require("../middlewares/checkPermission");
 const adminController = require("../controllers/adminController");
 
 const router = Router();
-var cors = require("cors");
+const cors = require("cors");
 router.use(cors());
 router.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
