@@ -699,8 +699,12 @@ exports.getAllVendors = async (req, res) => {
       vendors = vendors.filter((vendor) => {
         const vendorPinCode = vendor.pincode;
         const vendorFirstThree = vendorPinCode.substring(0, 3);
-        const userZipcode = req.user.selectedAddress.zipCode;
+        const userZipcode = req.user?.selectedAddress?.zipCode;
         const userFirstThree = userZipcode.substring(0, 3);
+
+        if (!userZipcode) {
+          return true;
+        }
 
         if (vendorFirstThree === userFirstThree) {
           return true;
