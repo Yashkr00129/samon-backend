@@ -697,8 +697,7 @@ exports.getAllVendors = async (req, res) => {
         .limit(limit);
 
       vendors = vendors.filter((vendor) => {
-        //   i want the first three charecters of this pincode in vendor and compare it with the zipcode of the selected address of the user
-        const vendorPinCode = vendor.address.pincode;
+        const vendorPinCode = vendor.pincode;
         const vendorFirstThree = vendorPinCode.substring(0, 3);
         const userZipcode = req.user.selectedAddress.zipCode;
         const userFirstThree = userZipcode.substring(0, 3);
