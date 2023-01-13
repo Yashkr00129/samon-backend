@@ -696,17 +696,17 @@ exports.getAllVendors = async (req, res) => {
         .skip(skipValue)
         .limit(limit);
 
-      // address: { city: req.user.selectedAddress.city }
+      vendors = vendors.filter((vendor) => {
+        //   i want the first three charecters of this pincode in vendor and compare it with the zipcode of the selected address of the user
+        const vendorPinCode = vendor.address.pincode;
+        const vendorFirstThree = vendorPinCode.substring(0, 3);
+        const userZipcode = req.user.selectedAddress.zipCode;
+        const userFirstThree = userZipcode.substring(0, 3);
 
-      vendors.map((vendor) => {
-        console.log(vendor.address);
-        console.log(vendor.address[0].city);
+        if (vendorFirstThree === userFirstThree) {
+          return true;
+        }
       });
-      console.log(req.user.selectedAddress.city);
-
-      vendors = vendors.filter(
-        (vendor) => vendor.address[0].city === req.user.selectedAddress.city
-      );
 
       count = vendors.length;
     }
