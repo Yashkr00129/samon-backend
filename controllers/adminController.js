@@ -691,11 +691,16 @@ exports.getAllVendors = async (req, res) => {
     }
     if (!search || search.length <= 0) {
       vendors = await Vendor.find()
+        .populate("address")
         .sort({ createdAt: sortBy })
         .skip(skipValue)
         .limit(limit);
 
       // address: { city: req.user.selectedAddress.city }
+
+      console.log(vendor.address);
+      console.log(vendor.address[0].city);
+      console.log(req.user.selectedAddress.city);
 
       vendors = vendors.filter(
         (vendor) => vendor.address[0].city === req.user.selectedAddress.city
