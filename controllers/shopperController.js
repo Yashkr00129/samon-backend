@@ -1452,10 +1452,8 @@ exports.getGrocersInState = [
       }
       if (!search) {
         grocers = await Grocer.find().populate("address");
-        grocers = grocers.filter(
-          (grocer) => grocer.address[0].city === req.user.selectedAddress.city
-        );
 
+        // Sort by user's city
         grocers = grocers.filter((grocer) => {
           const grocerPinCode = grocer.pincode;
           const grocerFirstThree = grocerPinCode.substring(0, 3);
@@ -1470,32 +1468,6 @@ exports.getGrocersInState = [
           }
         });
       }
-
-      const user = await Shopper.findOne(
-        { _id: req.user._id },
-        { address: 1 }
-      ).populate("address");
-
-      const states = [];
-      for (let address of user?.address) {
-        states.push(address?.state);
-      }
-      if (!states || !states.length > 0) {
-        return res.status(403).json({
-          status: false,
-          message: "Please add an address specifying the state!",
-        });
-      }
-      // grocers = grocers.filter((a) => {
-      //   let flag = 0;
-      //   for (let add of a.address) {
-      //     if (states.includes(add.state)) {
-      //       flag = 1;
-      //       break;
-      //     }
-      //   }
-      //   return flag == 1;
-      // });
 
       res.status(200).json({
         status: true,
