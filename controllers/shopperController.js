@@ -1527,8 +1527,6 @@ exports.getGroceriesInState = [
 
 // -----------RESTAURANTS------------
 exports.getRestaurantsInState = [
-  // body("search").not().isEmpty().withMessage("Search keyword is required"),
-
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -1549,10 +1547,7 @@ exports.getRestaurantsInState = [
       }
 
       if (!search) {
-        restaurants = await Restaurant.find({
-          address: { city: req.user.selectedAddress.city },
-        });
-
+        restaurants = await Restaurant.find();
         restaurants = restaurants.filter((restaurant) => {
           const restaurantPinCode = restaurant.pincode;
           const restaurantFirstThree = restaurantPinCode.substring(0, 3);
@@ -1567,27 +1562,6 @@ exports.getRestaurantsInState = [
           }
         });
       }
-
-      // const states = [];
-      // for (let address of user?.address) {
-      //   states.push(address?.state);
-      // }
-      // if (!states || !states.length > 0) {
-      //   return res.status(403).json({
-      //     status: false,
-      //     message: "Please add an address specifying the state!",
-      //   });
-      // }
-      // restaurants = restaurants.filter((a) => {
-      //   let flag = 0;
-      //   for (let add of a.address) {
-      //     if (states.includes(add.state)) {
-      //       flag = 1;
-      //       break;
-      //     }
-      //   }
-      //   return flag == 1;
-      // });
 
       res.status(200).json({
         status: true,
