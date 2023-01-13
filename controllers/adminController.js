@@ -698,8 +698,10 @@ exports.getAllVendors = async (req, res) => {
 
       // address: { city: req.user.selectedAddress.city }
 
-      console.log(vendor.address);
-      console.log(vendor.address[0].city);
+      vendors.map((vendor) => {
+        console.log(vendor.address);
+        console.log(vendor.address[0].city);
+      });
       console.log(req.user.selectedAddress.city);
 
       vendors = vendors.filter(
