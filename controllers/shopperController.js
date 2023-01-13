@@ -1451,15 +1451,17 @@ exports.getGrocersInState = [
         }).populate("address");
       }
       if (!search) {
-        grocers = await Grocer.find({
-          address: { city: req.user.address.city },
-        }).populate("address");
+        grocers = await Grocer.find().populate("address");
+        grocers = grocers.filter(
+          (grocer) => grocer.address[0].city === req.user.selectedAddress.city
+        );
       }
 
       const user = await Shopper.findOne(
         { _id: req.user._id },
         { address: 1 }
       ).populate("address");
+
       const states = [];
       for (let address of user?.address) {
         states.push(address?.state);
@@ -1559,16 +1561,13 @@ exports.getRestaurantsInState = [
           ],
         }).populate("address");
       }
+
       if (!search) {
         restaurants = await Restaurant.find({
-          address: { city: req.user.address.city },
+          address: { city: req.user.selectedAddress.city },
         });
       }
 
-      const user = await Shopper.findOne(
-        { _id: req.user._id },
-        { address: 1 }
-      ).populate("address");
       // const states = [];
       // for (let address of user?.address) {
       //   states.push(address?.state);

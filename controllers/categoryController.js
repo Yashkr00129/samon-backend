@@ -162,7 +162,7 @@ exports.getVendorsByCategory = [
       );
 
       vendors = vendors.filter(
-        (vendor) => vendor.address.city === req.user.address.city
+        (vendor) => vendor.address[0].city === req.user.selectedAddress.city
       );
 
       res.status(200).json({

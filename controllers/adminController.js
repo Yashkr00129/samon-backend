@@ -687,13 +687,7 @@ exports.getAllVendors = async (req, res) => {
         .skip(skipValue)
         .limit(limit);
 
-      count = await Vendor.find({
-        $or: [
-          { fullName: { $regex: new RegExp(search, "i") } },
-          { email: { $regex: new RegExp(search, "i") } },
-          { phone: { $regex: new RegExp(search, "i") } },
-        ],
-      }).countDocuments();
+      count = vendors.length;
     }
     if (!search || search.length <= 0) {
       vendors = await Vendor.find()
@@ -701,7 +695,13 @@ exports.getAllVendors = async (req, res) => {
         .skip(skipValue)
         .limit(limit);
 
-      count = await Vendor.find().countDocuments();
+      // address: { city: req.user.selectedAddress.city }
+
+      vendors = vendors.filter(
+        (vendor) => vendor.address[0].city === req.user.selectedAddress.city
+      );
+
+      count = vendors.length;
     }
     const users = [];
     for (let vendor of vendors) {
@@ -714,12 +714,6 @@ exports.getAllVendors = async (req, res) => {
       res.totalEarnings = totalEarnings;
       users.push(res);
     }
-
-    // all vendors have an address, inside the address they have a field called city
-    // now i want to check who is sending the request
-    // from that i want the city of the address field
-    // then i want to send all the vendors for that city
-    // plz write code for that
 
     res.status(200).json({
       status: true,
