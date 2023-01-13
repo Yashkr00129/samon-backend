@@ -1455,6 +1455,20 @@ exports.getGrocersInState = [
         grocers = grocers.filter(
           (grocer) => grocer.address[0].city === req.user.selectedAddress.city
         );
+
+        grocers = grocers.filter((grocer) => {
+          const grocerPinCode = grocer.pincode;
+          const grocerFirstThree = grocerPinCode.substring(0, 3);
+
+          const userZipcode = req.user?.selectedAddress?.zipCode;
+          if (!userZipcode) return true;
+
+          const userFirstThree = userZipcode.substring(0, 3);
+
+          if (grocerFirstThree === userFirstThree) {
+            return true;
+          }
+        });
       }
 
       const user = await Shopper.findOne(
@@ -1565,6 +1579,20 @@ exports.getRestaurantsInState = [
       if (!search) {
         restaurants = await Restaurant.find({
           address: { city: req.user.selectedAddress.city },
+        });
+
+        restaurants = restaurants.filter((restaurant) => {
+          const restaurantPinCode = restaurant.pincode;
+          const restaurantFirstThree = restaurantPinCode.substring(0, 3);
+
+          const userZipcode = req.user?.selectedAddress?.zipCode;
+          if (!userZipcode) return true;
+
+          const userFirstThree = userZipcode.substring(0, 3);
+
+          if (restaurantFirstThree === userFirstThree) {
+            return true;
+          }
         });
       }
 

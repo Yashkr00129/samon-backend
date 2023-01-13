@@ -115,7 +115,6 @@ exports.deleteRegion = [
       return res.status(400).json({ errors: errors.array() });
     }
     try {
-
       const region = await Region.findOne({ _id: req.params.regionId });
       if (!region) {
         return res.status(404).json({
@@ -178,6 +177,21 @@ exports.getVendorsByCategory = [
             (s) => a.adhaarCardNumber === s.adhaarCardNumber
           ) === i
       );
+
+      vendors = vendors.filter((vendor) => {
+        const vendorPinCode = vendor.pincode;
+        const vendorFirstThree = vendorPinCode.substring(0, 3);
+
+        const userZipcode = req.user?.selectedAddress?.zipCode;
+        if (!userZipcode) return true;
+
+        const userFirstThree = userZipcode.substring(0, 3);
+
+        if (vendorFirstThree === userFirstThree) {
+          return true;
+        }
+      });
+
       res.status(200).json({
         status: true,
         vendors: vendors,

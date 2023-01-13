@@ -161,9 +161,19 @@ exports.getVendorsByCategory = [
           ) === i
       );
 
-      vendors = vendors.filter(
-        (vendor) => vendor.address[0].city === req.user.selectedAddress.city
-      );
+      vendors = vendors.filter((vendor) => {
+        const vendorPinCode = vendor.pincode;
+        const vendorFirstThree = vendorPinCode.substring(0, 3);
+
+        const userZipcode = req.user?.selectedAddress?.zipCode;
+        if (!userZipcode) return true;
+
+        const userFirstThree = userZipcode.substring(0, 3);
+
+        if (vendorFirstThree === userFirstThree) {
+          return true;
+        }
+      });
 
       res.status(200).json({
         status: true,
